@@ -13,7 +13,7 @@
 <script>
 
     // Loading data
-    d3.csv('data/heatmap.csv').then((data) => {
+    const data = d3.csv('data/heatmap.csv').then((data) => {
         console.log(data);
     }).catch((error) => {
         console.error('Error loading the data');
