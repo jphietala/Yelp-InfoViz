@@ -11,12 +11,11 @@
 </html>
 
 <script>
-
     // Loading data
-    const data = d3.csv('data/heatmap.csv').then((data) => {
-        console.log(data);
-    }).catch((error) => {
-        console.error('Error loading the data');
+    d3.csv('data/heatmap_melt.csv').then(data => {
+        data.forEach(d => {
+            d.Rating = +d.Rating;
+        })
+    console.log(data);
     });
-
 </script>
