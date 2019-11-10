@@ -4,6 +4,9 @@
         <title>Heatmap</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://d3js.org/d3.v5.min.js"></script>
+        <style>
+          .selected {stroke:black; stroke-width: 2;}
+        </style>
     </head>
     <body>
         <div id='heatmap'></div>
@@ -31,9 +34,6 @@ var cuisines = ['Diners', 'Canadian (New)', 'Fast Food', 'Bakeries', 'Thai', 'Br
 'American (New)', 'Vietnamese', 'Chinese', 'Japanese', 'Asian Fusion', 'Sushi Bars', 'Cafes', 'Italian', 'Mediterranean',
 'Korean', 'French', 'Sandwiches', 'Desserts', 'Mexican', 'Pizza', 'Steakhouses', 'Seafood', 'Delis', 'Barbeque', 'Tex-Mex',
 'Hot Dogs', 'Chicken Wings', 'Salad', 'Vegetarian', 'Indian', 'Caribbean', 'Greek', 'Latin American', 'Soup', 'Middle Eastern', 'German']
-
-console.log(states)
-console.log(cuisines)
 
 // Build X scales and axis:
 var x = d3.scaleBand()
@@ -66,13 +66,21 @@ d3.csv('data/heatmap_melt.csv').then(data => {
       .append("rect")
       .attr("x", function(d) { return x(d.States) })
       .attr("y", function(d) { return y(d.Cuisine) })
-      .attr("width", x.bandwidth() )
-      .attr("height", y.bandwidth() )
+      .attr("width", x.bandwidth())
+      .attr("height", y.bandwidth())
+
+      .on("click", function(d) {
+          console.log("You clicked", d.States+':'+d.Cuisine+':'+d.Rating)
+          // Find previously selected, unselect
+          d3.select(".selected").classed("selected", false)
+          // Select current item
+          d3.select(this).classed("selected", true)
+      })
+
       .style("fill", function(d) { return myColor(d.Rating) } )
       .append("svg:title")
-      .text(function(d) { return d.Rating; });
-
-})
+      .text(function(d) { return ["Average rating: " + d.Rating]; })
+});
 
 // Loading data
 d3.csv('data/heatmap_melt.csv').then(data => {
