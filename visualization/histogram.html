@@ -4,9 +4,6 @@
         <title>Histogram</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://d3js.org/d3.v5.min.js"></script>
-        <style>
-          .selected {stroke:black; stroke-width: 2;}
-        </style>
     </head>
     <body>
         <div id='histogram'></div>
@@ -14,66 +11,6 @@
 </html>
 
 <script>
-
-// set the dimensions and margins of the graph
-// var margin = {top: 10, right: 10, bottom: 20, left: 110},
-//   width = 600 - margin.left - margin.right,
-//   height = 800 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-// var svg = d3.select("#histogram")
-// .append("svg")
-//   .attr("width", width + margin.left + margin.right)
-//   .attr("height", height + margin.top + margin.bottom)
-// .append("g")
-//   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// Build X scales and axis:
-// var x = d3.scaleBand()
-//   .range([ 0, width ])
-//   .domain(states)
-//   .padding(0.01);
-// svg.append("g")
-//   .attr("transform", "translate(0," + height + ")")
-//   .call(d3.axisBottom(x))
-
-// Build X scales and axis:
-// var y = d3.scaleBand()
-//   .range([ height, 0 ])
-//   .domain(cuisines)
-//   .padding(0.01);
-// svg.append("g")
-//   .call(d3.axisLeft(y));
-
-// Build color scale
-// var myColor = d3.scaleLinear()
-//   .range(["white","#d17819"])
-//   .domain([0,5])
-
-// Read the data
-// d3.csv('data/heatmap_melt.csv').then(data => {
-
-//   svg.selectAll()
-//       .data(data, function(d) { return d.States+':'+d.Cuisine; })
-//       .enter()
-//       .append("rect")
-//       .attr("x", function(d) { return x(d.States) })
-//       .attr("y", function(d) { return y(d.Cuisine) })
-//       .attr("width", x.bandwidth())
-//       .attr("height", y.bandwidth())
-
-//       .on("click", function(d) {
-//           console.log("You clicked", d.States+':'+d.Cuisine+':'+d.Rating)
-//           Find previously selected, unselect
-//           d3.select(".selected").classed("selected", false)
-//           Select current item
-//           d3.select(this).classed("selected", true)
-//       })
-
-//       .style("fill", function(d) { return myColor(d.Rating) } )
-//       .append("svg:title")
-//       .text(function(d) { return ["Average rating: " + d.Rating]; })
-// });
 
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 20, left: 30},
@@ -90,7 +27,7 @@ var svg = d3.select("#histogram")
 
 // add the x Axis
 var x = d3.scaleLinear()
-  .domain([-10,16])
+  .domain([0.5, 5.5])
   .range([0, width]);
 svg.append("g")
   .attr("transform", "translate(0," + height + ")")
@@ -99,21 +36,22 @@ svg.append("g")
 // add the y Axis
 var y = d3.scaleLinear()
   .range([height, 0])
-  .domain([0, 0.12]);
+  .domain([0, 1]);
 svg.append("g")
   .call(d3.axisLeft(y));
 
 // get the data
-d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_doubleHist.csv").then(data => {
+d3.csv("data/histogram.csv").then(data => {
+    console.log(data)
 
   // Compute kernel density estimation
-  var kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(60))
+  var kde = kernelDensityEstimator(kernelEpanechnikov(0.1), x.ticks(100))
   var density1 =  kde( data
-      .filter( function(d){return d.type === "variable 1"} )
-      .map(function(d){  return d.value; }) )
+      .filter( function(d){return d.state === "AZ" && d.category === "American (New)"} ) // Replace hard coded examples with interactive data
+      .map(function(d){  return d.restaurant_stars; }) )
   var density2 =  kde( data
-      .filter( function(d){return d.type === "variable 2"} )
-      .map(function(d){  return d.value; }) )
+      .filter( function(d){return d.state === "OH" && d.category === "Chicken Wings"} ) // Replace hard coded examples with interactive data
+      .map(function(d){  return d.restaurant_stars; }) )
 
   // Plot the area
   svg.append("path")
@@ -128,7 +66,11 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         .curve(d3.curveBasis)
           .x(function(d) { return x(d[0]); })
           .y(function(d) { return y(d[1]); })
-      );
+      )
+      .on("mouseover", function (d)  {
+        d3.select(this).append("svg:title")
+          .text(function(d) { return [data[0].state + ", " + data[0].category]; }) // Replace hard coded examples with interactive data
+      });
 
   // Plot the area
   svg.append("path")
@@ -143,15 +85,18 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         .curve(d3.curveBasis)
           .x(function(d) { return x(d[0]); })
           .y(function(d) { return y(d[1]); })
-      );
-
+      )
+      .on("mouseover", function (d)  {
+        d3.select(this).append("svg:title")
+          .text(function(d) { return [data[10000].state + ", " + data[10000].category]; }) // Replace hard coded examples with interactive data
+      });
 });
 
 // Handmade legend
 svg.append("circle").attr("cx",300).attr("cy",30).attr("r", 6).style("fill", "#69b3a2")
 svg.append("circle").attr("cx",300).attr("cy",60).attr("r", 6).style("fill", "#404080")
-svg.append("text").attr("x", 320).attr("y", 30).text("variable A").style("font-size", "15px").attr("alignment-baseline","middle")
-svg.append("text").attr("x", 320).attr("y", 60).text("variable B").style("font-size", "15px").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 320).attr("y", 30).text("variable A").style("font-size", "15px").attr("alignment-baseline","middle") // Replace hard coded examples with interactive data
+svg.append("text").attr("x", 320).attr("y", 60).text("variable B").style("font-size", "15px").attr("alignment-baseline","middle") // Replace hard coded examples with interactive data
 
 // Function to compute density
 function kernelDensityEstimator(kernel, X) {
