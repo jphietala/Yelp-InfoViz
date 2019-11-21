@@ -42,7 +42,7 @@ var myHeatmapColor = d3.scaleLinear()
   .range(["white","#0947ab"])
   .domain([0,5])
 
-//Read the data
+// Initializing the heatmap
 function initHeatmap(data) {
 
   svg.selectAll()

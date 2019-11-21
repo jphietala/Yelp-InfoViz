@@ -24,7 +24,13 @@
 				text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 				cursor: default;
 			}
-			
+
+			.heatmap_container {
+  				display: inline-block;
+  				width: 600px;
+  				height: 800px;
+			}
+
 			.heatmapSelected {
 				stroke:black;
 				stroke-width: 2;
@@ -38,6 +44,7 @@
 	</head>
 	<body>
 		<div id="table">
+
 			<div id="heatmap_container" style="display: inline-flex;"></div>
 			<div id="histogram_container" class="radarChart2" style="display: inline-flex;"></div>
 			<div id="linechart_container">
@@ -45,6 +52,7 @@
 
 			</div>
 			<div id="radarchart_container" class="radarChart2" style="display: inline-flex;"></div>
+
 		</div>
 		<div>
 
