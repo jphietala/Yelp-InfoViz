@@ -44,7 +44,7 @@ var myHeatmapColor = d3.scaleLinear()
 
 // Initializing the heatmap
 function initHeatmap(data) {
-
+  
   svg.selectAll()
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
       .enter()
