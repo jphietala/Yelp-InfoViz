@@ -20,14 +20,13 @@ let zoom = d3.zoom;
 let even = d3.event;
 
 
-const container = select('#linechart_container');
-console.log("container",container)
 
-const line_svg = container.select('svg');
+const line_svg = select('#line_svg');
 const width = +line_svg.attr('width');
 const height = +line_svg.attr('height');
 
 const render = data => {
+    line_svg.selectAll("*").remove();
   const title = 'Reviews per state and day of a year';
   
   const xValue = d => d.day;
