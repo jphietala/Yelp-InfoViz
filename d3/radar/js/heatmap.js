@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <title>Heatmap</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://d3js.org/d3.v5.min.js"></script>
-        <style>
-          .selected {stroke:black; stroke-width: 2;}
-        </style>
-    </head>
-    <body>
-        <div id='heatmap'></div>
-    </body>
-</html>
-
-<script>
-
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 10, bottom: 20, left: 110},
   width = 600 - margin.left - margin.right,
@@ -81,5 +64,3 @@ d3.csv('data/heatmap.csv').then(data => {
       .append("svg:title")
       .text(function(d) { return ["Average rating: " + d.Rating]; })
 });
-
-</script>
