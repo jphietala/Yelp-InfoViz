@@ -6,7 +6,7 @@ var heatmapMargin = {top: 10, right: 10, bottom: 20, left: 110},
   heatmapHeight = 800 - heatmapMargin.top - heatmapMargin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#heatmap_container")
+var hm_svg = d3.select("#heatmap_container")
 .append("svg")
   .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
   .attr("height", heatmapHeight + heatmapMargin.top + heatmapMargin.bottom)
@@ -25,7 +25,7 @@ var heatmapX = d3.scaleBand()
   .range([ 0, heatmapWidth ])
   .domain(heatmapStates)
   .padding(0.01);
-svg.append("g")
+hm_svg.append("g")
   .attr("transform", "translate(0," + heatmapHeight + ")")
   .call(d3.axisBottom(heatmapX))
 
@@ -34,9 +34,9 @@ var heatmapY = d3.scaleBand()
   .range([ heatmapHeight, 0 ])
   .domain(heatmapCuisines)
   .padding(0.01);
-svg.append("g")
+hm_svg.append("g")
   .call(d3.axisLeft(heatmapY));
-
+console.log("earlysvg", hm_svg)
 // Build color scale
 var myHeatmapColor = d3.scaleLinear()
   .range(["white","#0947ab"])
@@ -44,8 +44,8 @@ var myHeatmapColor = d3.scaleLinear()
 
 // Initializing the heatmap
 function initHeatmap(data) {
-  
-  svg.selectAll()
+  console.log("svg",hm_svg)
+  hm_svg.selectAll()
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
       .enter()
       .append("rect")
@@ -60,6 +60,7 @@ function initHeatmap(data) {
           d3.select(".heatmapSelected").classed("heatmapSelected", false)
           // Select current item
           d3.select(this).classed("heatmapSelected", true)
+          updateIdioms(d.States,d.Cuisine);
       })
 
       .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
