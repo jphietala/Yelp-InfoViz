@@ -55,7 +55,7 @@ var radarChartOptions2 = {
 	roundStrokes: false,
 	color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600", "#2a2fd4"]),
 	format: 's',
-	legend: { title: 'Organization XYZ', translateX: 100, translateY: 40 },
+	legend: { translateX: 100, translateY: 40 },
 	unit: ''
 };
 

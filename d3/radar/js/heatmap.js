@@ -1,10 +1,12 @@
+// Inspired by https://www.d3-graph-gallery.com/graph/heatmap_basic.html
+
 // set the dimensions and margins of the graph
 var heatmapMargin = {top: 10, right: 10, bottom: 20, left: 110},
   heatmapWidth = 600 - heatmapMargin.left - heatmapMargin.right,
   heatmapHeight = 800 - heatmapMargin.top - heatmapMargin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#heatmap")
+var svg = d3.select("#heatmap_container")
 .append("svg")
   .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
   .attr("height", heatmapHeight + heatmapMargin.top + heatmapMargin.bottom)
@@ -55,9 +57,9 @@ function initHeatmap(data) {
       .on("click", function(d) {
           console.log("You clicked", d.States+':'+d.Cuisine+':'+d.Rating)
           // Find previously selected, unselect
-          d3.select(".selected").classed("selected", false)
+          d3.select(".heatmapSelected").classed("heatmapSelected", false)
           // Select current item
-          d3.select(this).classed("selected", true)
+          d3.select(this).classed("heatmapSelected", true)
       })
 
       .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
