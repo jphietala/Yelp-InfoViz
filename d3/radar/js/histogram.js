@@ -1,37 +1,36 @@
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 20, left: 30},
-  width = 460 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+var histogramMargin = {top: 20, right: 20, bottom: 20, left: 30},
+  histogramWidth = 460 - histogramMargin.left - histogramMargin.right,
+  histogramHeight = 400 - histogramMargin.top - histogramMargin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#histogram")
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", histogramWidth + histogramMargin.left + histogramMargin.right)
+    .attr("height", histogramHeight + histogramMargin.top + histogramMargin.bottom)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + histogramMargin.left + "," + histogramMargin.top + ")");
 
 // add the x Axis
-var x = d3.scaleLinear()
+var histogramX = d3.scaleLinear()
   .domain([0.5, 5.5])
-  .range([0, width]);
+  .range([0, histogramWidth]);
 svg.append("g")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+  .attr("transform", "translate(0," + histogramHeight + ")")
+  .call(d3.axisBottom(histogramX));
 
 // add the y Axis
-var y = d3.scaleLinear()
-  .range([height, 0])
+var histogramY = d3.scaleLinear()
+  .range([histogramHeight, 0])
   .domain([0, 1]);
 svg.append("g")
-  .call(d3.axisLeft(y));
+  .call(d3.axisLeft(histogramY));
 
 // get the data
 d3.csv("data/histogram.csv").then(data => {
-    console.log(data)
 
   // Compute kernel density estimation
-  var kde = kernelDensityEstimator(kernelEpanechnikov(0.1), x.ticks(100))
+  var kde = kernelDensityEstimator(kernelEpanechnikov(0.1), histogramX.ticks(100))
   var density1 =  kde( data
       .filter( function(d){return d.state === "AZ" && d.category === "American (New)"} ) // Replace hard coded examples with interactive data
       .map(function(d){  return d.restaurant_stars; }) )
@@ -50,8 +49,8 @@ d3.csv("data/histogram.csv").then(data => {
       .attr("stroke-linejoin", "round")
       .attr("d",  d3.line()
         .curve(d3.curveBasis)
-          .x(function(d) { return x(d[0]); })
-          .y(function(d) { return y(d[1]); })
+          .x(function(d) { return histogramX(d[0]); })
+          .y(function(d) { return histogramY(d[1]); })
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
@@ -69,8 +68,8 @@ d3.csv("data/histogram.csv").then(data => {
       .attr("stroke-linejoin", "round")
       .attr("d",  d3.line()
         .curve(d3.curveBasis)
-          .x(function(d) { return x(d[0]); })
-          .y(function(d) { return y(d[1]); })
+          .x(function(d) { return histogramX(d[0]); })
+          .y(function(d) { return histogramY(d[1]); })
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
@@ -91,9 +90,9 @@ function kernelDensityEstimator(kernel, X) {
       return [x, d3.mean(V, function(v) { return kernel(x - v); })];
     });
   };
-}
+};
 function kernelEpanechnikov(k) {
   return function(v) {
     return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
   };
-}
+};
