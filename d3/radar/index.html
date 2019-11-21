@@ -12,21 +12,7 @@
 		<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 		<script src="https://d3js.org/d3-path.v1.min.js" charset="utf-8"></script>
 
-		<!-- RadarChart js -->
-		<script src="js/radarChart.js" charset="utf-8"></script>
-		<script src="js/radarsettings.js" charset="utf-8"></script>
 
-		<!-- Heatmap js -->
-		<script src="js/heatmap.js" charset="utf-8"></script>
-		
-		<!-- Histogram js -->
-		<script src="js/histogram.js" charset="utf-8"></script>
-
-		<!-- Linechart js -->
-
-
-		<!-- Global functions -->
-		<script src="js/functions.js" charset="utf-8"></script>
 
 		<style>
 			body {
@@ -54,7 +40,10 @@
 		<div id="table">
 			<div id="heatmap_container" style="display: inline-flex;"></div>
 			<div id="histogram_container" class="radarChart2" style="display: inline-flex;"></div>
-			<div id="linechart_container" class="radarChart2" style="display: inline-flex;"></div>
+			<div id="linechart_container">
+				    <svg width="960" height="500"></svg>
+
+			</div>
 			<div id="radarchart_container" class="radarChart2" style="display: inline-flex;"></div>
 		</div>
 		<div>
@@ -64,6 +53,21 @@
 			<button onclick="updateIdioms('QC','Burgers');">Quebec - Burgers</button>
 			<button onclick="updateIdioms('QC','Diners');">Quebec - Diners</button>
 		</div>
+		<!-- RadarChart js -->
+		<script src="js/radarChart.js" charset="utf-8"></script>
+		<script src="js/radarsettings.js" charset="utf-8"></script>
 
+		<!-- Heatmap js -->
+		<script src="js/heatmap.js" charset="utf-8"></script>
+
+		<!-- Histogram js -->
+		<script src="js/histogram.js" charset="utf-8"></script>
+
+		<!-- Linechart js -->
+		<script src="js/colorLegend.js"></script>
+    	<script src="js/line.js"></script>
+
+		<!-- Global functions -->
+		<script src="js/functions.js" charset="utf-8"></script>
 	</body>
 </html>

@@ -20,8 +20,8 @@ function updateRadarChart(infodicts = [["Nevada - Burgers", [35,324,23,33,54,42,
 //////////////////////////////////////////////////////////////
 
 var radarmargin = { top: 50, right: 80, bottom: 50, left: 80 },
-	width = Math.min(700, window.innerWidth / 4) - radarmargin.left - radarmargin.right,
-	height = Math.min(width, window.innerHeight - radarmargin.top - radarmargin.bottom);
+	radarwidth = Math.min(700, window.innerWidth / 4) - radarmargin.left - radarmargin.right,
+	radarheight = Math.min(radarwidth, window.innerHeight - radarmargin.top - radarmargin.bottom);
 
 
 
