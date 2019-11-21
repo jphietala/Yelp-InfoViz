@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <style>
-          .selected {stroke:black; stroke-width: 2;}
+          .heatmapSelected {stroke:black; stroke-width: 2;}
         </style>
     </head>
     <body>
@@ -72,9 +72,9 @@ d3.csv('data/heatmap.csv').then(data => {
       .on("click", function(d) {
           console.log("You clicked", d.States+':'+d.Cuisine)
           // Find previously selected, unselect
-          d3.select(".selected").classed("selected", false)
+          d3.select(".heatmapSelected").classed("heatmapSelected", false)
           // Select current item
-          d3.select(this).classed("selected", true)
+          d3.select(this).classed("heatmapSelected", true)
       })
 
       .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
