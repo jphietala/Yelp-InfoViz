@@ -41,7 +41,7 @@ var myHeatmapColor = d3.scaleLinear()
   .domain([0,5])
 
 //Read the data
-d3.csv('data/heatmap.csv').then(data => {
+function initHeatmap(data) {
 
   svg.selectAll()
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
@@ -63,4 +63,4 @@ d3.csv('data/heatmap.csv').then(data => {
       .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
       .append("svg:title")
       .text(function(d) { return ["Average rating: " + d.Rating]; })
-});
+};
