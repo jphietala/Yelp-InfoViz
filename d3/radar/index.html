@@ -12,8 +12,6 @@
 		<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 		<script src="https://d3js.org/d3-path.v1.min.js" charset="utf-8"></script>
 
-
-
 		<style>
 			body {
 				font-family: 'Open Sans', sans-serif;
@@ -42,6 +40,7 @@
 			}
 		</style>
 	</head>
+
 	<body>
 		<div id="table">
 
@@ -54,13 +53,14 @@
 			<div id="radarchart_container" class="radarChart2" style="display: inline-flex;"></div>
 
 		</div>
-		<div>
 
+		<div>
 			<button onclick="updateIdioms('NV','Burgers');">Nevada - Burgers</button>
 			<button onclick="updateIdioms('NV','Pizza');">Nevada - Pizza</button>
 			<button onclick="updateIdioms('QC','Burgers');">Quebec - Burgers</button>
 			<button onclick="updateIdioms('QC','Diners');">Quebec - Diners</button>
 		</div>
+
 		<!-- RadarChart js -->
 		<script src="js/radarChart.js" charset="utf-8"></script>
 		<script src="js/radarsettings.js" charset="utf-8"></script>
@@ -77,5 +77,6 @@
 
 		<!-- Global functions -->
 		<script src="js/functions.js" charset="utf-8"></script>
+
 	</body>
 </html>
