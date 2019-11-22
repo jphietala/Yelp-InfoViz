@@ -1,5 +1,13 @@
 // Inspired by https://www.d3-graph-gallery.com/graph/heatmap_basic.html
 
+function selectedHM(element) {
+    d3.select(".heatmapSelected2").classed("heatmapSelected2", false)
+    d3.select(".heatmapSelected").classed("heatmapSelected", false).classed("heatmapSelected2", true)
+    // Select current item
+    d3.select(element).classed("heatmapSelected", true)
+
+}
+
 // set the dimensions and margins of the graph
 var heatmapMargin = {top: 10, right: 10, bottom: 20, left: 110},
   heatmapWidth = 600 - heatmapMargin.left - heatmapMargin.right,
@@ -51,6 +59,7 @@ var myHeatmapColor = d3.scaleLinear()
   .on("click", function(d) {
           //console.log("You clicked", d)
           // Select current item
+            selectedHM(this);
           updateIdioms(d,"");
       });
 
@@ -58,6 +67,7 @@ var myHeatmapColor = d3.scaleLinear()
   .on("click", function(d) {
           //console.log("You clicked", d)
           // Select current item
+         selectedHM(this);
           updateIdioms("",d);
       });
 
@@ -76,9 +86,7 @@ function initHeatmap(data) {
       .on("click", function(d) {
           console.log("You clicked", d.States+':'+d.Cuisine+':'+d.Rating)
           // Find previously selected, unselect
-          d3.select(".heatmapSelected").classed("heatmapSelected", false)
-          // Select current item
-          d3.select(this).classed("heatmapSelected", true)
+            selectedHM(this);
           updateIdioms(d.States,d.Cuisine);
       })
 
