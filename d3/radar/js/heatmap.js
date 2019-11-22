@@ -25,22 +25,41 @@ var heatmapX = d3.scaleBand()
   .range([ 0, heatmapWidth ])
   .domain(heatmapStates)
   .padding(0.01);
+
 hm_svg.append("g")
   .attr("transform", "translate(0," + heatmapHeight + ")")
   .call(d3.axisBottom(heatmapX))
+    .attr("id","hmX");
 
 // Build X scales and axis:
 var heatmapY = d3.scaleBand()
   .range([ heatmapHeight, 0 ])
   .domain(heatmapCuisines)
   .padding(0.01);
+
 hm_svg.append("g")
-  .call(d3.axisLeft(heatmapY));
-console.log("earlysvg", hm_svg)
+  .call(d3.axisLeft(heatmapY))
+    .attr("id","hmY");
+
+//console.log("earlysvg", hm_svg)
 // Build color scale
 var myHeatmapColor = d3.scaleLinear()
   .range(["white","#0947ab"])
   .domain([0,5])
+
+  hm_svg.selectAll("#hmX .tick")
+  .on("click", function(d) {
+          //console.log("You clicked", d)
+          // Select current item
+          updateIdioms(d,"");
+      });
+
+  hm_svg.selectAll("#hmY .tick")
+  .on("click", function(d) {
+          //console.log("You clicked", d)
+          // Select current item
+          updateIdioms("",d);
+      });
 
 // Initializing the heatmap
 function initHeatmap(data) {
