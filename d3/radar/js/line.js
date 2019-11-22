@@ -113,14 +113,36 @@ const render = data => {
   	.entries(data)
   	/*.sort((a,b) => 
           descending(lastYValue(a), lastYValue(b)));*/
-  
+
+
   colorScale.domain(nested.map(d => d.key));
-  
+
+  const tooltip = g.append("text")
+		.attr("class", "tooltip")
+		.attr('x', 0)
+		.attr('y', 0)
+		.style("font-size", "12px")
+		.style('display', 'none')
+		.attr("text-anchor", "middle")
+		.attr("dy", "0.35em");
+
   g.selectAll('.line-path').data(nested)
   	.enter().append('path')
   		.attr('class', 'line-path')
   		.attr('d', d => lineGenerator(d.values))
   		.attr('stroke', d => colorScale(d.key))
+      		.on("mouseover", function(d) {
+      		    console.log(d)
+			tooltip
+				//.attr('x', this.cx.baseVal.value - 10)
+
+				.style('display', 'block')
+				.text();
+		})
+		.on("mouseout", function(){
+			tooltip.transition()
+				.style('display', 'none').text('');
+		})
   	.append('title')
       .text(d => d.key);
      

@@ -27,7 +27,7 @@
 			.heatmap_container {
   				display: inline-block;
   				width: 600px;
-  				height: 800px;
+  				height: 900px;
 			}
 
 			.heatmapSelected {
@@ -52,24 +52,26 @@
 			<table>
 				<tr>
 					<td>
-						<div id="heatmap_container" style="display: inline-flex;"></div>
+						<div><button onclick="updateIdioms('','');">Total</button> </div>
+						<div id="heatmap_container"></div>
 					</td>
 					<td>
 						<table>
 							<tr>
-								<td>
-									<div id="histogram_container" class="radarChart2"></div>
-
+								<td width=300>
+									<div id="histogram_container"></div>
 								</td>
 								<td>
+
+
 									<div id="radarchart_container" class="radarChart2"></div>
 
 								</td>
 							</tr>
-							<tr>
-								<td>
+							<tr colspan=2>
+								<td colspan="2">
 								<div id="linechart_container">
-									<svg id="line_svg" width="960" height="500"></svg>
+									<svg id="line_svg" width="960" height="400"></svg>
 								</div>
 								</td>
 							</tr>

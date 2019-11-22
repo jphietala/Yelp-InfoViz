@@ -50,12 +50,12 @@ var radarChartOptions2 = {
 	w: 290,
 	h: 350,
 	margin: radarmargin,
-	maxValue: 60,
+	maxValue: 5,
 	levels: 6,
 	roundStrokes: false,
 	color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600", "#2a2fd4"]),
-	format: 's',
-	legend: { translateX: 100, translateY: 40 },
+	format: 'd',
+	legend: { translateX: 100, translateY: 40},
 	unit: ''
 };
 
