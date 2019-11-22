@@ -63,14 +63,14 @@ const render = data => {
   
   const yAxis = axisLeft(yScale)
     .tickSize(-innerWidth)
-    .tickPadding(0);
+    .tickPadding(5);
   
   const yAxisG = g.append('g').call(yAxis);
   yAxisG.selectAll('.domain').remove();
   
   yAxisG.append('text')
       .attr('class', 'axis-label')
-      .attr('y', -35)
+      .attr('y', -40)
       .attr('x', -innerHeight / 2)
       .attr('fill', 'black')
       .attr('transform', `rotate(-90)`)
@@ -84,7 +84,7 @@ const render = data => {
   
   xAxisG.append('text')
       .attr('class', 'axis-label')
-      .attr('y', 35)
+      .attr('y', 30)
       .attr('x', innerWidth / 2)
       .attr('fill', 'black')
       .text(xAxisLabel);
