@@ -51,7 +51,7 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	 opacityCircles: 0.1, 	//The opacity of the circles of each blob
 	 strokeWidth: 2, 		//The width of the stroke around each blob
 	 roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
-	 color: d3.scaleOrdinal(d3.schemeCategory10),	//Color function,
+	 color: d3.scaleOrdinal().range(["#AFC52F", "#ff6600", "#2a2fd4"]),	//Color function,
 	 format: '.2%',
 	 unit: '',
 	 legend: false
