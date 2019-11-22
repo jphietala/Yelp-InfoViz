@@ -5,7 +5,7 @@ body {
 
 .line-path {
 	fill: none;
-  stroke-width: 2;
+  stroke-width: 1.5;
   stroke-linejoin: round;
   stroke-linecap: round;
   mix-blend-mode: multiply;
@@ -18,21 +18,23 @@ body {
 
 #linechart_container.tick text {
   font-size: 1.5rem;
-  fill: #5e635d;
+  fill: #242424;
 }
 
-#linechart_container.tick line {
-  stroke: #C0C0BB;
+#linechart_container .tick line {
+  stroke: #242424;
 }
 
-#linechart_container.axis-label {
-  font-size: 3.7em;
-  fill: #8E8883;
+#linechart_container text.axis-label {
+  font-size: 11px;
+  fill: #242424;
 }
 
-#linechart_container.title {
-  font-size: 2.8em;
-  fill: #635F5D;
+#linechart_container text.title {
+  font-size: 1.8em;
+  fill: #242424;
+  margin-left: 30px;
+
 }
 
 #linechart_container.label {
@@ -40,11 +42,17 @@ body {
   fill: none;
 }
 
-#linechart_container.line-path:hover {
+#linechart_container path.line-path:hover {
   fill: none;
-  stroke-width: 3.5;
+  stroke-width: 2.3;
+  color: black;
 }
 
 #linechart_container.tick {
   cursor: pointer;
+}
+
+#linechart_container rect.overlay {
+  fill: none;
+	pointer-events: all;
 }
