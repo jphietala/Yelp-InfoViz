@@ -37,7 +37,7 @@ const render = data => {
   
   const colorValue = d => d.state;
   
-  const margin = { top: 60, right: 180, bottom: 100, left: 150 };
+  const margin = { top: 25, right: 180, bottom: 50, left: 100 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
   
@@ -63,7 +63,7 @@ const render = data => {
   
   const yAxis = axisLeft(yScale)
     .tickSize(-innerWidth)
-    .tickPadding(7);
+    .tickPadding(0);
   
   const yAxisG = g.append('g').call(yAxis);
   yAxisG.selectAll('.domain').remove();
@@ -122,13 +122,13 @@ const render = data => {
   		.attr('d', d => lineGenerator(d.values))
   		.attr('stroke', d => colorScale(d.key))
   	.append('title')
-      .text(d => 'No. of reviews of ' + d.key + ': ' + d.values.review);
-  
-  /*const focus = g.append("g")
+      .text(d => d.key);
+     
+  const focus = g.append("g")
       .attr("class", "focus")
       .style("display", "none");
 
-  focus.append("circle")
+  /*focus.append("circle")
       .attr("r", 5);
 
   const overlay = g.append("rect")
@@ -155,7 +155,7 @@ const render = data => {
       .attr("x", 60)
       .attr("y", 18);
 
-  svg.append("rect")
+  g.append("rect")
       .attr("class", "overlay")
       .attr("width", width)
       .attr("height", height)
@@ -164,12 +164,13 @@ const render = data => {
       .on("mousemove", mousemove);
 
   function mousemove() {
-      const x0 = xValue.invert(mouse(this)[0]),
-          i = data, x0, 1),
-          d0 = data[i - 1],
-          d1 = data[i],
+      
+      const x0 = xScale.invert(mouse(this)[0]),
+          d0 = data[x0 - 1],
+          d1 = data[d0],
           d = x0 - d0.day > d1.day - x0 ? d1 : d0;
-      focus.attr("transform", "translate(" + x(d.day) + "," + y(d.review) + ")");
+          console.log(xScale);
+      focus.attr("transform", "translate(" + xScale(d.day) + "," + yScale(d.review) + ")");
       focus.select(".tooltip-date").text(d.day);
       focus.select(".tooltip-reviews").text(d.review);
   }*/

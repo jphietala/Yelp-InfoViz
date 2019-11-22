@@ -9,7 +9,7 @@ function selectedHM(element) {
 }
 
 // set the dimensions and margins of the graph
-var heatmapMargin = {top: 10, right: 10, bottom: 20, left: 110},
+var heatmapMargin = {top: 30, right: 10, bottom: 20, left: 110},
   heatmapWidth = 600 - heatmapMargin.left - heatmapMargin.right,
   heatmapHeight = 800 - heatmapMargin.top - heatmapMargin.bottom;
 
@@ -28,6 +28,8 @@ var heatmapCuisines = ['Diners', 'Canadian (New)', 'Fast Food', 'Bakeries', 'Tha
 'Korean', 'French', 'Sandwiches', 'Desserts', 'Mexican', 'Pizza', 'Steakhouses', 'Seafood', 'Delis', 'Barbeque', 'Tex-Mex',
 'Hot Dogs', 'Chicken Wings', 'Salad', 'Vegetarian', 'Indian', 'Caribbean', 'Greek', 'Latin American', 'Soup', 'Middle Eastern', 'German']
 
+var titleHM = 'Average Rating of State/Cuisine-Combination'
+
 // Build X scales and axis:
 var heatmapX = d3.scaleBand()
   .range([ 0, heatmapWidth ])
@@ -38,6 +40,14 @@ hm_svg.append("g")
   .attr("transform", "translate(0," + heatmapHeight + ")")
   .call(d3.axisBottom(heatmapX))
     .attr("id","hmX");
+
+// Add title 
+hm_svg.append('text')
+  .attr('class', 'titleHM')
+  .attr('y', -10)
+  .attr('x', 60)
+  .attr('font-size', 18)
+  .text(titleHM); 
 
 // Build X scales and axis:
 var heatmapY = d3.scaleBand()
