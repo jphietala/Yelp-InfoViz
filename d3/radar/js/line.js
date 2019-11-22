@@ -27,7 +27,7 @@ const height = +line_svg.attr('height');
 
 const render = data => {
     line_svg.selectAll("*").remove();
-  const title = 'Reviews per state/cuisine and day of a year';
+  const title = 'Reviews per State/Cuisine and Day of a Year';
   
   const xValue = d => d.day;
   const xAxisLabel = 'Days';

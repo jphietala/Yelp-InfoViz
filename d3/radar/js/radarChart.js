@@ -106,6 +106,15 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	let g = svg.append("g")
 			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
 
+	const titleRadar = 'Reviews per State/Cuisine and Weekday';
+	// Add title 
+	g.append('text')
+	.attr('class', 'titleRadar')
+	.attr('y', -200)
+	.attr('x', -150)
+	.attr('font-size', 18)
+	.text(titleRadar);
+
 	/////////////////////////////////////////////////////////
 	////////// Glow filter for some extra pizzazz ///////////
 	/////////////////////////////////////////////////////////
