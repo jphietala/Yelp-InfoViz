@@ -62,7 +62,7 @@ hm_svg.append("g")
 //console.log("earlysvg", hm_svg)
 // Build color scale
 var myHeatmapColor = d3.scaleLinear()
-  .range(["white","#0947ab"])
+  .range(["white","#0947ab"]) // Can we make the hue scale from min value to max
   .domain([0,5])
 
   hm_svg.selectAll("#hmX .tick")
