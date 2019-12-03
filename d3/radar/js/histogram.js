@@ -26,7 +26,7 @@ var histogramY = d3.scaleLinear()
 svg.append("g")
   .call(d3.axisLeft(histogramY));
 
-// get the data
+// Initialize the histogram
 d3.csv("data/histogram.csv").then(data => {
 
   // Compute kernel density estimation
