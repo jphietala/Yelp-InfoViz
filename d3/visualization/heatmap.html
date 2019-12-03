@@ -42,7 +42,7 @@ var heatmapX = d3.scaleBand()
   .padding(0.01);
 svg.append("g")
   .attr("transform", "translate(0," + heatmapHeight + ")")
-  .call(d3.axisBottom(heatmapX))
+  .call(d3.axisBottom(heatmapX));
 
 // Build X scales and axis:
 var heatmapY = d3.scaleBand()

@@ -5,7 +5,6 @@ function selectedHM(element) {
     d3.select(".heatmapSelected").classed("heatmapSelected", false).classed("heatmapSelected2", true)
     // Select current item
     d3.select(element).classed("heatmapSelected", true)
-
 }
 
 // set the dimensions and margins of the graph
@@ -49,7 +48,7 @@ hm_svg.append('text')
   .attr('font-size', 18)
   .text(titleHM); 
 
-// Build X scales and axis:
+// Build Y scales and axis:
 var heatmapY = d3.scaleBand()
   .range([ heatmapHeight, 0 ])
   .domain(heatmapCuisines)
@@ -66,7 +65,7 @@ var myHeatmapColor = d3.scaleLinear()
 
   hm_svg.selectAll("#hmX .tick")
   .on("click", function(d) {
-          //console.log("You clicked", d)
+          console.log("You clicked", d)
           // Select current item
             selectedHM(this);
           updateIdioms(d,"");
@@ -74,7 +73,7 @@ var myHeatmapColor = d3.scaleLinear()
 
   hm_svg.selectAll("#hmY .tick")
   .on("click", function(d) {
-          //console.log("You clicked", d)
+          console.log("You clicked", d)
           // Select current item
          selectedHM(this);
           updateIdioms("",d);

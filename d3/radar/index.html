@@ -44,15 +44,81 @@
 				font-family: sans-serif;
 				fill: #242424;
 			}
+			
+			.topbar {
+				background-color: #d1a8a5;
+				width: 100%;
+				height: 70px;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+			}
+
+			.topbar h1 {
+				float: left;
+    			margin: 20px;
+			}
+
+			.topbar button {
+				float: left;
+				height: 27.5px;
+				width: 50px;
+				text-align: center;
+    			margin: 20px;
+			}
+			
+			.topbarLegend {
+				font-size: 16px;
+				float: right;
+				margin: 25px;
+				margin-left: 0;
+				text-align: left;
+			}
+
+			.topbarLegend2 {
+				font-size: 16px;
+				float: right;
+				margin: 25px;
+				margin-left: 0;
+				text-align: left;
+			}
+
+			.topbarLegendBox {
+				float: right;
+				margin: 20px;
+				background-color: #AFC52F;
+				width: 30px;
+				height: 30px;
+			}
+
+			.topbarLegendBox2 {
+				float: right;
+				margin: 20px;
+				background-color: #c41200;
+				width: 30px;
+				height: 30px;
+			}
+
 		</style>
 	</head>
 
 	<body>
+
+		<div class="topbar">
+			<div>
+				<h1>Yelp Restaurant Reviews</h1>
+			</div>
+			<div>
+				<button onclick="updateIdioms('','');selectedHM(this);">Total</button>
+			</div>
+			<div class="topbarLegend2">Legend2</div>
+			<div class="topbarLegendBox2"></div>
+			<div class="topbarLegend">Legend1</div>
+			<div class="topbarLegendBox"></div>		
+		</div>
+
 		<div id="table" align="center">
 			<table>
 				<tr>
 					<td>
-						<div align="center"><button onclick="updateIdioms('','');selectedHM(this);">Total</button> </div>
 						<div id="heatmap_container"></div>
 					</td>
 					<td>
@@ -62,7 +128,6 @@
 									<div id="histogram_container">Space for histogram</div>
 								</td>
 								<td>
-
 
 									<div id="radarchart_container" class="radarChart2"></div>
 
