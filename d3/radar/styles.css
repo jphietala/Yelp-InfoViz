@@ -18,6 +18,11 @@ body {
   
 }
 
+#histogram_container {
+  margin: 30px;
+  margin-right: 0;
+}
+
 #linechart_container text {
   font-family: sans-serif;
 }

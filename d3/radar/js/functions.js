@@ -58,7 +58,6 @@ function updateIdioms(state = "", cuisine = "") {
 
 function whenLoaded() {
     let temp =  getFromRevs(selected.first);
-    console.log(temp)
     selected.first.weekdays = temp[0];
     selected.first.revs_year = temp[1];
     temp =  getFromRevs(selected.second);
@@ -67,7 +66,7 @@ function whenLoaded() {
     render(formatYear(selected));
     initHeatmap(heatmap_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays])
-    //initHistogram(histogram_data);
+    updateHistogram(histogram_data);
 
 }
 

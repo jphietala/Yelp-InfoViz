@@ -4,18 +4,28 @@ var histogramMargin = {top: 20, right: 20, bottom: 20, left: 30},
   histogramHeight = 400 - histogramMargin.top - histogramMargin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#histogram")
+var hist_svg = d3.select("#histogram_container")
   .append("svg")
     .attr("width", histogramWidth + histogramMargin.left + histogramMargin.right)
     .attr("height", histogramHeight + histogramMargin.top + histogramMargin.bottom)
   .append("g")
     .attr("transform", "translate(" + histogramMargin.left + "," + histogramMargin.top + ")");
 
+var titleHist = 'Distribution of Ratings'
+
+// Add title 
+hist_svg.append('text')
+  .attr('class', 'titleHist')
+  .attr('y', 0)
+  .attr('x', 130)
+  .attr('font-size', 18)
+  .text(titleHist);
+
 // add the x Axis
 var histogramX = d3.scaleLinear()
   .domain([0.5, 5.5])
   .range([0, histogramWidth]);
-svg.append("g")
+hist_svg.append("g")
   .attr("transform", "translate(0," + histogramHeight + ")")
   .call(d3.axisBottom(histogramX));
 
@@ -23,26 +33,26 @@ svg.append("g")
 var histogramY = d3.scaleLinear()
   .range([histogramHeight, 0])
   .domain([0, 1]);
-svg.append("g")
+hist_svg.append("g")
   .call(d3.axisLeft(histogramY));
 
 // Initialize the histogram
-d3.csv("data/histogram.csv").then(data => {
+function updateHistogram(data) {
 
   // Compute kernel density estimation
   var kde = kernelDensityEstimator(kernelEpanechnikov(0.1), histogramX.ticks(100))
   var density1 =  kde( data
-      .filter( function(d){return d.state === "AZ" && d.category === "American (New)"} ) // Replace hard coded examples with interactive data
+      .filter( function(d){return d.state === "NV" && d.category === "American (New)"} ) 
       .map(function(d){  return d.restaurant_stars; }) )
   var density2 =  kde( data
-      .filter( function(d){return d.state === "OH" && d.category === "Chicken Wings"} ) // Replace hard coded examples with interactive data
+      .filter( function(d){return d.state === "OH" && d.category === "Chicken Wings"} )
       .map(function(d){  return d.restaurant_stars; }) )
 
   // Plot the area
-  svg.append("path")
+  hist_svg.append("path")
       .attr("class", "mypath")
       .datum(density1)
-      .attr("fill", "#5377ed")
+      .attr("fill", "#AFC52F")
       .attr("opacity", ".6")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
@@ -58,10 +68,10 @@ d3.csv("data/histogram.csv").then(data => {
       });
 
   // Plot the area
-  svg.append("path")
+  hist_svg.append("path")
       .attr("class", "mypath")
       .datum(density2)
-      .attr("fill", "#f2973d")
+      .attr("fill", "#ff6600")
       .attr("opacity", ".6")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
@@ -75,13 +85,7 @@ d3.csv("data/histogram.csv").then(data => {
         d3.select(this).append("svg:title")
           .text(function(d) { return [data[10000].state + ", " + data[10000].category]; }) // Replace hard coded examples with interactive data
       });
-});
-
-// Handmade legend
-svg.append("circle").attr("cx",280).attr("cy",30).attr("r", 6).style("fill", "#5377ed")
-svg.append("circle").attr("cx",280).attr("cy",60).attr("r", 6).style("fill", "#f2973d")
-svg.append("text").attr("x", 300).attr("y", 30).text("AZ, American (New)").style("font-size", "15px").attr("alignment-baseline","middle") // Replace hard coded examples with interactive data
-svg.append("text").attr("x", 300).attr("y", 60).text("NC, Latin American").style("font-size", "15px").attr("alignment-baseline","middle") // Replace hard coded examples with interactive data
+};
 
 // Function to compute density
 function kernelDensityEstimator(kernel, X) {
