@@ -55,7 +55,7 @@ body {
 
 #linechart_container path.line-path:hover {
   fill: none;
-  stroke-width: 2.3;
+  stroke-width: 3;
   color: black;
 }
 
