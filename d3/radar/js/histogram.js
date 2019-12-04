@@ -11,7 +11,7 @@ var hist_svg = d3.select("#histogram_container")
   .append("g")
     .attr("transform", "translate(" + histogramMargin.left + "," + histogramMargin.top + ")");
 
-var titleHist = 'Distribution of Ratings'
+var titleHist = 'Distribution of Ratings';
 
 // Add title 
 hist_svg.append('text')
@@ -32,23 +32,43 @@ hist_svg.append("g")
 // add the y Axis
 var histogramY = d3.scaleLinear()
   .range([histogramHeight, 0])
-  .domain([0, 1]);
+  .domain([0, 2]);
 hist_svg.append("g")
   .call(d3.axisLeft(histogramY));
 
 // Initialize the histogram
-function updateHistogram(data) {
+function updateHistogram(data, sel) {
 
-  // Compute kernel density estimation
-  var kde = kernelDensityEstimator(kernelEpanechnikov(0.1), histogramX.ticks(100))
-  var density1 =  kde( data
-      .filter( function(d){return d.state === "NV" && d.category === "American (New)"} ) 
+  // Remove histograms created before
+  hist_svg.selectAll("path").remove()
+  var kde = kernelDensityEstimator(kernelEpanechnikov(0.4), histogramX.ticks(100))
+
+  if (sel.first.state !== "" && sel.first.cuisine !== "") {
+
+    // Compute kernel density estimation
+    var density1 =  kde( data
+      .filter( function(d){return d.state === sel.first.state && d.category === sel.first.cuisine} ) 
       .map(function(d){  return d.restaurant_stars; }) )
-  var density2 =  kde( data
-      .filter( function(d){return d.state === "OH" && d.category === "Chicken Wings"} )
+    var density2 =  kde( data
+      .filter( function(d){return d.state === sel.second.state && d.category === sel.second.cuisine} )
       .map(function(d){  return d.restaurant_stars; }) )
 
-  // Plot the area
+  /* } else if (sel.first.state !== "") {
+    var density1 =  kde( data 
+      .filter( function(d){return d.state === sel.first.state} )
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else if (sel.first.cuisine !== "") {
+    var density1 =  kde( data 
+      .filter( function(d){return d.category === sel.first.cuisine} )
+      .map(function(d){  return d.restaurant_stars; }) )
+  
+  } else {
+    var density1 =  kde( data 
+      .map(function(d){  return d.restaurant_stars; }) ) */
+  }
+
+  // Plot the area of histogram 1
   hist_svg.append("path")
       .attr("class", "mypath")
       .datum(density1)
@@ -64,10 +84,10 @@ function updateHistogram(data) {
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
-          .text(function(d) { return [data[0].state + ", " + data[0].category]; }) // Replace hard coded examples with interactive data
+          .text(function(d) { return [sel.first.state + ", " + sel.first.cuisine]; })
       });
 
-  // Plot the area
+  // Plot the area of histogram 2
   hist_svg.append("path")
       .attr("class", "mypath")
       .datum(density2)
@@ -83,7 +103,7 @@ function updateHistogram(data) {
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
-          .text(function(d) { return [data[10000].state + ", " + data[10000].category]; }) // Replace hard coded examples with interactive data
+          .text(function(d) { return [sel.second.state + ", " + sel.second.cuisine]; })
       });
 };
 

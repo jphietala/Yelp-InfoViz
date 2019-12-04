@@ -5,9 +5,7 @@ var heatmap_data = [];
 var revs_year_data = [];
 var selected = {'first': {'state': '', 'cuisine': ''}, 'second': {'state': '', 'cuisine': ''}};
 
-
 // Load Data
-// All data loaded here
 Promise.all([
     d3.csv('data/heatmap.csv'),
     d3.csv('data/weekdays.csv'),
@@ -18,14 +16,8 @@ Promise.all([
     weekdays_data = data[1];
     revs_year_data = data[2];
     histogram_data = data[3];
-    //console.log("loaded heatmap data", heatmap_data);
-    //console.log("loaded revs year", revs_year_data);
-    //console.log("loaded revsweek", weekdays_data);
-    //console.log(" Loaded histogram data", histogram_data);
     whenLoaded();
 });
-
-
 
 function updateIdioms(state = "", cuisine = "") {
     // Set new selected:
@@ -44,16 +36,15 @@ function updateIdioms(state = "", cuisine = "") {
     selected.first.weekdays = temp[0];
     selected.first.revs_year = temp[1];
 
-    // Histogram
-    // updateHistogram(selected);
-    
     // Line Chart
     render(formatYear(selected));
 
     // Radar Chart
     formatYear(selected);
-
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
+
+    // Histogram
+    updateHistogram(histogram_data, selected);
 }
 
 function whenLoaded() {
@@ -66,8 +57,7 @@ function whenLoaded() {
     render(formatYear(selected));
     initHeatmap(heatmap_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays])
-    updateHistogram(histogram_data);
-
+    updateHistogram(histogram_data, selected);
 }
 
 function getFromRevs(sel){
