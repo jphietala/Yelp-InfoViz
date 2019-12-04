@@ -29,6 +29,14 @@ var heatmapCuisines = ['Diners', 'Canadian (New)', 'Fast Food', 'Bakeries', 'Tha
 
 var titleHM = 'Average Rating of State/Cuisine-Combination'
 
+// Add title 
+hm_svg.append('text')
+  .attr('class', 'titleHM')
+  .attr('y', -10)
+  .attr('x', 60)
+  .attr('font-size', 18)
+  .text(titleHM); 
+
 // Build X scales and axis:
 var heatmapX = d3.scaleBand()
   .range([ 0, heatmapWidth ])
@@ -39,14 +47,6 @@ hm_svg.append("g")
   .attr("transform", "translate(0," + heatmapHeight + ")")
   .call(d3.axisBottom(heatmapX))
     .attr("id","hmX");
-
-// Add title 
-hm_svg.append('text')
-  .attr('class', 'titleHM')
-  .attr('y', -10)
-  .attr('x', 60)
-  .attr('font-size', 18)
-  .text(titleHM); 
 
 // Build Y scales and axis:
 var heatmapY = d3.scaleBand()
@@ -81,7 +81,8 @@ var myHeatmapColor = d3.scaleLinear()
 
 // Initializing the heatmap
 function initHeatmap(data) {
-  hm_svg.selectAll()
+  
+    hm_svg.selectAll()
 
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
       .enter()

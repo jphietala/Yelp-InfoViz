@@ -28,9 +28,8 @@ function updateIdioms(state = "", cuisine = "") {
         selected.first = {'state': state, 'cuisine': cuisine};
     }
 
-    // Update Legend
-    document.getElementById("p1").innerHTML = selected.first.state + ", " + selected.first.cuisine;
-    document.getElementById("p2").innerHTML = selected.second.state + ", " + selected.second.cuisine;
+    // Update Legend in the top bar
+    updateLegends(selected);
 
     const temp =  getFromRevs(selected.first);
     selected.first.weekdays = temp[0];
@@ -153,4 +152,28 @@ function formatYear(sel) {
       });
 
     return data_list
+}
+
+function updateLegends(selected) {
+    // Update Legend 1
+    if (selected.first.state !== "" && selected.first.cuisine !== "") {
+        document.getElementById("p1").innerHTML = selected.first.state + ", " + selected.first.cuisine;
+    } else if (selected.first.state !== "" && selected.first.cuisine === "") {
+        document.getElementById("p1").innerHTML = selected.first.state;
+    } else if (selected.first.state === "" && selected.first.cuisine !== "") {
+        document.getElementById("p1").innerHTML = selected.first.cuisine;
+    } else {
+        document.getElementById("p1").innerHTML = "Total";
+    }
+
+    // Update Legend 2
+    if (selected.second.state !== "" && selected.second.cuisine !== "") {
+        document.getElementById("p2").innerHTML = selected.second.state + ", " + selected.second.cuisine;
+    } else if (selected.second.state !== "" && selected.second.cuisine === "") {
+        document.getElementById("p2").innerHTML = selected.second.state;
+    } else if (selected.second.state === "" && selected.second.cuisine !== "") {
+        document.getElementById("p2").innerHTML = selected.second.cuisine;
+    } else {
+        document.getElementById("p2").innerHTML = "Total";
+    }
 }
