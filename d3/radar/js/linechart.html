@@ -12,17 +12,10 @@
 
 <script>
 
-d3.csv('../data/dayofyear.csv').then((data) => {
-  updateLinechart(data);
-})
-
 // set the dimensions and margins of the graph
-
 var margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 960 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
-
-var linechartXLabels = ["30", "60", "90", "120", "150", "180", "210", "240", "270", "300", "330"]
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -33,51 +26,49 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-//Read the data
+// Make the linechart
 function updateLinechart(data) {
-  console.log(data)
 
-  // group the data: I want to draw one line per group
-  var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
-    .key(function(d) { return d.name;})
-    .entries(data);
+  var combo1 =  data 
+      .filter( function(d){return d.state === "NV" && d.category === "Pizza"} )
+      .map(function(d){  return d.num_revs; })
 
-  // Add X axis --> it is a date format
+  var combo2 = data
+      .filter( function(d){return d.state === "NV" && d.category === "Burgers"} )
+      .map(function(d){  return d.num_revs; })
+
+  // Add X axis
   var x = d3.scaleLinear()
-    .domain(linechartXLabels)
+    .domain([ 0, 360 ])
     .range([ 0, width ]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(5));
+    .call(d3.axisBottom(x).ticks(10));
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) { return +d.n; })])
+    .domain([0, d3.max(combo1)])
     .range([ height, 0 ]);
   svg.append("g")
     .call(d3.axisLeft(y));
 
-  // color palette
-  var res = sumstat.map(function(d){ return d.key }) // list of group names
-  var color = d3.scaleOrdinal()
-    .domain(res)
-    .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
+  var rangelist = range(0, 365);
+  console.log(combo1)
 
-  // Draw the line
-  svg.selectAll(".line")
-      .data(sumstat)
-      .enter()
-      .append("path")
-        .attr("fill", "none")
-        .attr("stroke", function(d){ return color(d.key) })
-        .attr("stroke-width", 1.5)
-        .attr("d", function(d){
-          return d3.line()
-            .x(function(d) { return x(d.year); })
-            .y(function(d) { return y(+d.n); })
-            (d.values)
-        })
-
-}
+  // Add line1
+  svg.append("path")
+      .datum(combo1)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("d", d3.line()
+        .x(function(d) { return x(d.date) }) //value on x axis
+        .y(function(d) { return y(d.value) }) //value on y axis
+      );
+};
+        
+d3.csv('../data/y_days_0.csv').then((data) => {
+  updateLinechart(data);
+});
 
 </script>
