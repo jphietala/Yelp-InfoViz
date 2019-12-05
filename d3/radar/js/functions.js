@@ -3,6 +3,10 @@
 var weekdays_data = [];
 var heatmap_data = [];
 var revs_year_data = [];
+var histogram_data = [];
+var heatmap_data_w = [];
+var revs_year_data_w = [];
+var histogram_data_w = [];
 var selected = {'first': {'state': '', 'cuisine': ''}, 'second': {'state': '', 'cuisine': ''}};
 
 // Load Data
@@ -10,12 +14,36 @@ Promise.all([
     d3.csv('data/heatmap.csv'),
     d3.csv('data/weekdays.csv'),
     d3.csv('data/dayofyear.csv'),
-    d3.csv('data/histogram.csv')
+    d3.csv('data/histogram.csv'),
+    d3.csv('data/hm_0.csv'),
+    d3.csv('data/hm_1.csv'),
+    d3.csv('data/hm_2.csv'),
+    d3.csv('data/hm_3.csv'),
+    d3.csv('data/hm_4.csv'),
+    d3.csv('data/hm_5.csv'),
+    d3.csv('data/hm_6.csv'),
+    d3.csv('data/y_days_0.csv'),
+    d3.csv('data/y_days_1.csv'),
+    d3.csv('data/y_days_2.csv'),
+    d3.csv('data/y_days_3.csv'),
+    d3.csv('data/y_days_4.csv'),
+    d3.csv('data/y_days_5.csv'),
+    d3.csv('data/y_days_6.csv'),
+    d3.csv('data/histo_0.csv'),
+    d3.csv('data/histo_1.csv'),
+    d3.csv('data/histo_2.csv'),
+    d3.csv('data/histo_3.csv'),
+    d3.csv('data/histo_4.csv'),
+    d3.csv('data/histo_5.csv'),
+    d3.csv('data/histo_6.csv')
 ]).then(data => {
     heatmap_data = data[0];
     weekdays_data = data[1];
     revs_year_data = data[2];
     histogram_data = data[3];
+    heatmap_data_w = data.slice(4,11);
+    revs_year_data_w = data.slice(11,17);
+    histogram_data_w = data.slice(17,24);
     whenLoaded();
 });
 
