@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html>
+  <meta charset="utf-8"></meta>
+  <body>
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz"></div>
+  </body>
+</html>
 
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
-<!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
-
 <script>
 
+d3.csv('../data/dayofyear.csv').then((data) => {
+  updateLinechart(data);
+})
+
 // set the dimensions and margins of the graph
+
 var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
+    width = 960 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
+
+var linechartXLabels = ["30", "60", "90", "120", "150", "180", "210", "240", "270", "300", "330"]
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -24,7 +34,8 @@ var svg = d3.select("#my_dataviz")
           "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered.csv", function(data) {
+function updateLinechart(data) {
+  console.log(data)
 
   // group the data: I want to draw one line per group
   var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
@@ -33,7 +44,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
 
   // Add X axis --> it is a date format
   var x = d3.scaleLinear()
-    .domain(d3.extent(data, function(d) { return d.year; }))
+    .domain(linechartXLabels)
     .range([ 0, width ]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -67,6 +78,6 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
             (d.values)
         })
 
-})
+}
 
 </script>
