@@ -49,11 +49,9 @@ function updateHistogram(data, sel) {
     var density1 =  kde( data
       .filter( function(d){return d.state === sel.first.state && d.category === sel.first.cuisine} ) 
       .map(function(d){  return d.restaurant_stars; }) )
-    var density2 =  kde( data
-      .filter( function(d){return d.state === sel.second.state && d.category === sel.second.cuisine} )
-      .map(function(d){  return d.restaurant_stars; }) )
-
-  /* } else if (sel.first.state !== "") {
+  
+/*
+  } else if (sel.first.state !== "") {
     var density1 =  kde( data 
       .filter( function(d){return d.state === sel.first.state} )
       .map(function(d){  return d.restaurant_stars; }) )
@@ -64,10 +62,13 @@ function updateHistogram(data, sel) {
       .map(function(d){  return d.restaurant_stars; }) )
   
   } else {
-    var density1 =  kde( data 
-      .map(function(d){  return d.restaurant_stars; }) ) */
+    var density1 =  kde(data.restaurant_stars)*/
   }
-
+/*
+  var density2 =  kde( data
+    .filter( function(d){return d.state === sel.second.state && d.category === sel.second.cuisine} )
+    .map(function(d){  return d.restaurant_stars; }) )
+*/
   // Plot the area of histogram 1
   hist_svg.append("path")
       .attr("class", "mypath")
