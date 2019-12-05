@@ -13,7 +13,7 @@ var selected = {'first': {'state': '', 'cuisine': ''}, 'second': {'state': '', '
 Promise.all([
     d3.csv('data/heatmap.csv'),
     d3.csv('data/weekdays.csv'),
-    d3.csv('data/dayofyear.csv'),
+    d3.csv('data/y_days_all.csv'),
     d3.csv('data/histogram.csv'),
     d3.csv('data/hm_0.csv'),
     d3.csv('data/hm_1.csv'),
