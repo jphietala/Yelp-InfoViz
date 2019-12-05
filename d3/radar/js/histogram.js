@@ -53,12 +53,20 @@ hist_svg.append("text")
   .text("Value");
 
 hist_svg.append("line")
-.attr("x1", 0)
-.attr("y1", 0)
-.attr("x2", 0)
-.attr("y2", histogramWidth - 55)
-.style("stroke", "black")
-.style("stroke-width", );
+  .attr("x1", 0)
+  .attr("y1", 0)
+  .attr("x2", 0)
+  .attr("y2", histogramWidth - 55)
+  .style("stroke", "black")
+  .style("stroke-width", 0.5);
+
+hist_svg.append("line")
+  .attr("x1", 0)
+  .attr("y1", histogramHeight)
+  .attr("x2", histogramWidth)
+  .attr("y2", histogramHeight)
+  .style("stroke", "black")
+  .style("stroke-width", 0.5);
 
 // Initialize the histogram
 function updateHistogram(data, sel) {
