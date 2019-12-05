@@ -53,7 +53,6 @@ const render = data => {
   const colorScale = scaleOrdinal().range(["#AFC52F", "#ff6600", "#2a2fd4"]);
   //let indata = [{name: infodicts[0][0], axes: first_vals, color: '#26AF32'},{name: infodicts[1][0], axes: second_vals, color: '#762712'}];
 
-  
   const g = line_svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
   

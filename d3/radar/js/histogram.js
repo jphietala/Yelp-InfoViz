@@ -1,48 +1,80 @@
 // set the dimensions and margins of the graph
-var histogramMargin = {top: 20, right: 20, bottom: 20, left: 30},
-  histogramWidth = 460 - histogramMargin.left - histogramMargin.right,
-  histogramHeight = 400 - histogramMargin.top - histogramMargin.bottom;
+var histogramMargin = {top: 20, right: 20, bottom: 50, left: 50},
+  histogramWidth = 480 - histogramMargin.left - histogramMargin.right,
+  histogramHeight = 420 - histogramMargin.top - histogramMargin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#histogram")
+var hist_svg = d3.select("#histogram_container")
   .append("svg")
     .attr("width", histogramWidth + histogramMargin.left + histogramMargin.right)
     .attr("height", histogramHeight + histogramMargin.top + histogramMargin.bottom)
   .append("g")
     .attr("transform", "translate(" + histogramMargin.left + "," + histogramMargin.top + ")");
 
+var titleHist = 'Distribution of Ratings';
+
+// Add title 
+hist_svg.append('text')
+  .attr('class', 'titleHist')
+  .attr('y', 0)
+  .attr('x', 130)
+  .attr('font-size', 18)
+  .text(titleHist);
+
 // add the x Axis
 var histogramX = d3.scaleLinear()
   .domain([0.5, 5.5])
   .range([0, histogramWidth]);
-svg.append("g")
+hist_svg.append("g")
   .attr("transform", "translate(0," + histogramHeight + ")")
   .call(d3.axisBottom(histogramX));
+
+// add text label for the x axis
+hist_svg.append("text")             
+.attr("transform",
+      "translate(" + (histogramWidth/2) + " ," + (histogramHeight + histogramMargin.top + 15) + ")")
+.style("text-anchor", "middle")
+.text("Review Averages");
 
 // add the y Axis
 var histogramY = d3.scaleLinear()
   .range([histogramHeight, 0])
-  .domain([0, 1]);
-svg.append("g")
+  .domain([0, 2]);
+hist_svg.append("g")
   .call(d3.axisLeft(histogramY));
 
-// get the data
-d3.csv("data/histogram.csv").then(data => {
+// add text label for the y axis
+hist_svg.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - histogramMargin.left)
+  .attr("x",0 - (histogramHeight / 2))
+  .attr("dy", "1em")
+  .style("text-anchor", "middle")
+  .text("Value");
 
-  // Compute kernel density estimation
-  var kde = kernelDensityEstimator(kernelEpanechnikov(0.1), histogramX.ticks(100))
-  var density1 =  kde( data
-      .filter( function(d){return d.state === "AZ" && d.category === "American (New)"} ) // Replace hard coded examples with interactive data
-      .map(function(d){  return d.restaurant_stars; }) )
-  var density2 =  kde( data
-      .filter( function(d){return d.state === "OH" && d.category === "Chicken Wings"} ) // Replace hard coded examples with interactive data
-      .map(function(d){  return d.restaurant_stars; }) )
+hist_svg.append("line")
+.attr("x1", 0)
+.attr("y1", 0)
+.attr("x2", 0)
+.attr("y2", histogramWidth - 55)
+.style("stroke", "black")
+.style("stroke-width", );
 
-  // Plot the area
-  svg.append("path")
+// Initialize the histogram
+function updateHistogram(data, sel) {
+
+  // Set kernel parameters and calculate the estimation
+  var kde = kernelDensityEstimator(kernelEpanechnikov(0.4), histogramX.ticks(100))
+ 
+  density = calculateDensity(data, sel, kde);
+  density1 = density[0]
+  density2 = density[1]
+
+  // Plot the area of histogram 1
+  hist_svg.append("path")
       .attr("class", "mypath")
       .datum(density1)
-      .attr("fill", "#5377ed")
+      .attr("fill", "#AFC52F")
       .attr("opacity", ".6")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
@@ -54,14 +86,14 @@ d3.csv("data/histogram.csv").then(data => {
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
-          .text(function(d) { return [data[0].state + ", " + data[0].category]; }) // Replace hard coded examples with interactive data
+          .text(function(d) { return [sel.first.state + ", " + sel.first.cuisine]; })
       });
 
-  // Plot the area
-  svg.append("path")
+  // Plot the area of histogram 2
+  hist_svg.append("path")
       .attr("class", "mypath")
       .datum(density2)
-      .attr("fill", "#f2973d")
+      .attr("fill", "#ff6600")
       .attr("opacity", ".6")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
@@ -73,15 +105,9 @@ d3.csv("data/histogram.csv").then(data => {
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
-          .text(function(d) { return [data[10000].state + ", " + data[10000].category]; }) // Replace hard coded examples with interactive data
+          .text(function(d) { return [sel.second.state + ", " + sel.second.cuisine]; })
       });
-});
-
-// Handmade legend
-svg.append("circle").attr("cx",280).attr("cy",30).attr("r", 6).style("fill", "#5377ed")
-svg.append("circle").attr("cx",280).attr("cy",60).attr("r", 6).style("fill", "#f2973d")
-svg.append("text").attr("x", 300).attr("y", 30).text("AZ, American (New)").style("font-size", "15px").attr("alignment-baseline","middle") // Replace hard coded examples with interactive data
-svg.append("text").attr("x", 300).attr("y", 60).text("NC, Latin American").style("font-size", "15px").attr("alignment-baseline","middle") // Replace hard coded examples with interactive data
+};
 
 // Function to compute density
 function kernelDensityEstimator(kernel, X) {
@@ -95,4 +121,66 @@ function kernelEpanechnikov(k) {
   return function(v) {
     return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
   };
+};
+
+function calculateDensity(data, sel, kde) {
+  // Density for the first histogram
+  if (sel.first.state !== "" && sel.first.cuisine !== "") {
+      
+    // Remove histograms created before
+    hist_svg.select("path").remove()
+    
+    // Compute kernel density estimation
+    var density1 =  kde( data
+      .filter( function(d){return d.state === sel.first.state && d.category === sel.first.cuisine} ) 
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else if (sel.first.state !== "" && sel.first.cuisine === "") {
+
+    hist_svg.select("path").remove()
+    var density1 =  kde( data 
+      .filter( function(d){return d.state === sel.first.state} )
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else if (sel.first.state === "" && sel.first.cuisine !== "") {
+
+    hist_svg.select("path").remove()
+    var density1 =  kde( data 
+      .filter( function(d){return d.category === sel.first.cuisine} )
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else {
+    hist_svg.select("path").remove()
+    var density1 =  kde(data.map(function(d){  return d.restaurant_stars; }))
+  }
+
+  // Density for the second histogram
+  if (sel.second.state !== "" && sel.second.cuisine !== "") {
+
+    hist_svg.select("path").remove()
+    // Compute kernel density estimation
+    var density2 =  kde( data
+      .filter( function(d){return d.state === sel.second.state && d.category === sel.second.cuisine} ) 
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else if (sel.second.state !== "" && sel.second.cuisine === "") {
+
+    hist_svg.select("path").remove()
+    var density2 =  kde( data 
+      .filter( function(d){return d.state === sel.second.state} )
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else if (sel.second.state === "" && sel.second.cuisine !== "") {
+
+    hist_svg.select("path").remove()
+    var density2 =  kde( data 
+      .filter( function(d){return d.category === sel.second.cuisine} )
+      .map(function(d){  return d.restaurant_stars; }) )
+
+  } else {
+    hist_svg.select("path").remove()
+    var density2 =  kde(data.map(function(d){  return d.restaurant_stars; }))
+  }
+
+  return [density1, density2]
 };

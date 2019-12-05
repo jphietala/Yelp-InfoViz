@@ -5,7 +5,6 @@ function selectedHM(element) {
     d3.select(".heatmapSelected").classed("heatmapSelected", false).classed("heatmapSelected2", true)
     // Select current item
     d3.select(element).classed("heatmapSelected", true)
-
 }
 
 // set the dimensions and margins of the graph
@@ -30,6 +29,14 @@ var heatmapCuisines = ['Diners', 'Canadian (New)', 'Fast Food', 'Bakeries', 'Tha
 
 var titleHM = 'Average Rating of State/Cuisine-Combination'
 
+// Add title 
+hm_svg.append('text')
+  .attr('class', 'titleHM')
+  .attr('y', -10)
+  .attr('x', 60)
+  .attr('font-size', 18)
+  .text(titleHM); 
+
 // Build X scales and axis:
 var heatmapX = d3.scaleBand()
   .range([ 0, heatmapWidth ])
@@ -41,15 +48,7 @@ hm_svg.append("g")
   .call(d3.axisBottom(heatmapX))
     .attr("id","hmX");
 
-// Add title 
-hm_svg.append('text')
-  .attr('class', 'titleHM')
-  .attr('y', -10)
-  .attr('x', 60)
-  .attr('font-size', 18)
-  .text(titleHM); 
-
-// Build X scales and axis:
+// Build Y scales and axis:
 var heatmapY = d3.scaleBand()
   .range([ heatmapHeight, 0 ])
   .domain(heatmapCuisines)
@@ -59,15 +58,14 @@ hm_svg.append("g")
   .call(d3.axisLeft(heatmapY))
     .attr("id","hmY");
 
-//console.log("earlysvg", hm_svg)
 // Build color scale
 var myHeatmapColor = d3.scaleLinear()
   .range(["white","#0947ab"])
-  .domain([0,5])
+  .domain([2,5])
 
   hm_svg.selectAll("#hmX .tick")
   .on("click", function(d) {
-          //console.log("You clicked", d)
+          console.log("You clicked", d)
           // Select current item
             selectedHM(this);
           updateIdioms(d,"");
@@ -75,7 +73,7 @@ var myHeatmapColor = d3.scaleLinear()
 
   hm_svg.selectAll("#hmY .tick")
   .on("click", function(d) {
-          //console.log("You clicked", d)
+          console.log("You clicked", d)
           // Select current item
          selectedHM(this);
           updateIdioms("",d);
@@ -83,7 +81,8 @@ var myHeatmapColor = d3.scaleLinear()
 
 // Initializing the heatmap
 function initHeatmap(data) {
-  hm_svg.selectAll()
+  
+    hm_svg.selectAll()
 
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
       .enter()

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
 		<title>Yelp Restaurant Reviews</title>
 
@@ -13,59 +14,39 @@
 		<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
 		<script src="https://d3js.org/d3-path.v1.min.js" charset="utf-8"></script>
 
-		<style>
-			body {
-				font-family: sans-serif;
-				font-size: 12px;
-				font-weight: 300;
-				fill: #242424;
-				text-align: center;
-				/*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;*/
-				cursor: default;
-			}
-
-			.heatmap_container {
-  				display: inline-block;
-  				width: 600px;
-  				height: 900px;
-			}
-
-			.heatmapSelected {
-				stroke:#AFC52F;
-				stroke-width: 3;
-			}
-
-			.heatmapSelected2 {
-				stroke:#ff6600;
-				stroke-width: 3;
-			}
-
-			.legend {
-				font-family: sans-serif;
-				fill: #242424;
-			}
-		</style>
 	</head>
 
 	<body>
+
+		<div class="topbar">
+			<div>
+				<h1>Yelp Restaurant Reviews</h1>
+			</div>
+			<div>
+				<button onclick="updateIdioms('','');selectedHM(this);
+				document.getElementById('p1').innerHTML = 'Total'">Total</button>
+			</div>
+			<div class="topbarLegend2"><p id="p2"></p></div>
+			<div class="topbarLegendBox2"></div>
+			<div class="topbarLegend"><p id="p1">Total</p></div>
+			<div class="topbarLegendBox"></div>		
+		</div>
+
 		<div id="table" align="center">
 			<table>
 				<tr>
 					<td>
-						<div align="center"><button onclick="updateIdioms('','');selectedHM(this);">Total</button> </div>
 						<div id="heatmap_container"></div>
 					</td>
 					<td>
 						<table>
+
 							<tr>
-								<td align="center" width="300">
-									<div id="histogram_container">Space for histogram</div>
+								<td>
+									<div id="histogram_container"></div>
 								</td>
 								<td>
-
-
 									<div id="radarchart_container" class="radarChart2"></div>
-
 								</td>
 							</tr>
 							<tr colspan=2>
