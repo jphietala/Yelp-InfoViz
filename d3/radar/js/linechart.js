@@ -15,6 +15,10 @@ var line_svg = d3.select("#linechart_container")
 // Make the linechart
 function updateLinechart(data) {
 
+  // Remove previously drawn svg elements; axis and lines so that they don't duplicate
+  line_svg.selectAll("path").remove()
+  line_svg.selectAll("g").remove()
+
   // Initializing list for getting max value of number of reviews
   var maxrevs = [];
 
