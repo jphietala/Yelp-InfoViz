@@ -73,7 +73,7 @@ function updateIdioms(state = "", cuisine = "") {
     // Line Chart
     //render(formatYear(selected));
 
-    //updateLinechart(somedata, selected);
+    updateLinechart(revs_year_data);
 
 
     // Radar Chart
@@ -89,10 +89,9 @@ function whenLoaded() {
     selected.second.weekdays = getFromRevs(selected.second);
     //render(formatYear(selected));
     initHeatmap(hm_data);
-    updateRadarChart([selected.first.weekdays, selected.second.weekdays])
+    updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     updateHistogram(hg_data, selected);
-
-    //updateLinechart(somedata, selected);
+    updateLinechart(revs_year_data);
 }
 
 function getFromRevs(sel){
