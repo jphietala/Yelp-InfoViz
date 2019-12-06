@@ -1,5 +1,4 @@
 // Global functions
-
 var weekdays_data = [];
 var heatmap_data = [];
 var revs_year_data = [];
@@ -7,6 +6,10 @@ var histogram_data = [];
 var heatmap_data_w = [];
 var revs_year_data_w = [];
 var histogram_data_w = [];
+var hm_data = [];
+var lc_data = [];
+var hg_data = [];
+var rc_data = [];
 var selected = {'first': {'state': '', 'cuisine': ''}, 'second': {'state': '', 'cuisine': ''}};
 
 // Load Data
@@ -42,8 +45,14 @@ Promise.all([
     revs_year_data = data[2];
     histogram_data = data[3];
     heatmap_data_w = data.slice(4,11);
-    revs_year_data_w = data.slice(11,17);
-    histogram_data_w = data.slice(17,24);
+    revs_year_data_w = data.slice(11,18);
+    histogram_data_w = data.slice(18,25);
+    var hm_data = histogram_data;
+    var lc_data = revs_year_data;
+    var hg_data = heatmap_data;
+    var rc_data = weekdays_data;
+
+}).then(function() {
     whenLoaded();
 });
 
@@ -68,7 +77,6 @@ function updateIdioms(state = "", cuisine = "") {
 
 
     // Radar Chart
-    //formatYear(selected);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
 
     // Histogram
@@ -76,17 +84,18 @@ function updateIdioms(state = "", cuisine = "") {
 }
 
 function whenLoaded() {
+
     selected.first.weekdays = getFromRevs(selected.first);
     selected.second.weekdays = getFromRevs(selected.second);
     //render(formatYear(selected));
-    initHeatmap(heatmap_data);
+    initHeatmap(hm_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
-    updateHistogram(histogram_data, selected);
+    updateHistogram(hg_data, selected);
     updateLinechart(revs_year_data);
 }
 
 function getFromRevs(sel){
-    let week_data = weekdays_data;
+    let week_data = rc_data;
     let label = "Total";
 
     let weekdays_revs = Array(7).fill(0);
@@ -116,7 +125,7 @@ function getFromRevs(sel){
     } else {
         if (sel.cuisine !== '') {
             label = selected.first.cuisine;
-            week_data = weekdays_data.filter(function (d) {
+            week_data = week_data.filter(function (d) {
                 return d.cuisine === sel.cuisine
             });
         }
