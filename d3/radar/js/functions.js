@@ -59,15 +59,13 @@ function updateIdioms(state = "", cuisine = "") {
     // Update Legend in the top bar
     updateLegends(selected);
 
-    const temp =  getFromRevs(selected.first);
-    selected.first.weekdays = temp[0];
-    selected.first.revs_year = temp[1];
+    selected.first.weekdays = getFromRevs(selected.first);
 
     // Line Chart
-    render(formatYear(selected));
+    //render(formatYear(selected));
 
     // Radar Chart
-    formatYear(selected);
+    //formatYear(selected);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
 
     // Histogram
@@ -75,43 +73,31 @@ function updateIdioms(state = "", cuisine = "") {
 }
 
 function whenLoaded() {
-    let temp =  getFromRevs(selected.first);
-    selected.first.weekdays = temp[0];
-    selected.first.revs_year = temp[1];
-    temp =  getFromRevs(selected.second);
-    selected.second.weekdays = temp[0];
-    selected.second.revs_year = temp[1];
-    render(formatYear(selected));
+    selected.first.weekdays = getFromRevs(selected.first);
+    selected.second.weekdays = getFromRevs(selected.second);
+    //render(formatYear(selected));
     initHeatmap(heatmap_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays])
     updateHistogram(histogram_data, selected);
 }
 
 function getFromRevs(sel){
-    // TODO: Sum over all cuisines if only state is selected and vice versa
     let week_data = weekdays_data;
-    let year_data = revs_year_data;
     let label = "Total";
 
     let weekdays_revs = Array(7).fill(0);
-    let year_revs = Array(365).fill(0);
 
     if (sel.state !== '') {
         week_data = weekdays_data.filter(function (d) {
             return d.state === sel.state
         });
-        year_data = revs_year_data.filter(function (d) {
-            return d.state === sel.state
-        });
+
 
         if (sel.cuisine !== '') {
             label = selected.first.state + " - " + selected.first.cuisine;
             weekdays_revs = eval(week_data.filter(function (d) {
                 return d.cuisine === sel.cuisine
             })[0].weekdays)
-            year_revs = eval(year_data.filter(function (d) {
-                return d.cuisine === sel.cuisine
-            })[0].revs_year)
         } else {
             label = selected.first.state;
             weekdays_revs = Array(7).fill(0);
@@ -122,14 +108,6 @@ function getFromRevs(sel){
                     weekdays_revs[i] += day;
                 }
             })
-            year_revs = Array(365).fill(0);
-            year_data.forEach(function (d) {
-                let wd = eval(d.revs_year)
-                for (let i = 0; i < 365; i++) {
-                    let day = (typeof (wd[i]) === 'number') ? wd[i] : 0;
-                    year_revs[i] += day;
-                }
-            })
         }
     } else {
         if (sel.cuisine !== '') {
@@ -137,10 +115,6 @@ function getFromRevs(sel){
             week_data = weekdays_data.filter(function (d) {
                 return d.cuisine === sel.cuisine
             });
-            year_data = revs_year_data.filter(function (d) {
-                return d.cuisine === sel.cuisine
-            });
-
         }
         weekdays_revs = Array(7).fill(0);
         week_data.forEach(function (d) {
@@ -150,22 +124,13 @@ function getFromRevs(sel){
                 weekdays_revs[i] += day;
             }
         });
-        year_revs = Array(365).fill(0);
-        year_data.forEach(function (d) {
-            let wd = eval(d.revs_year)
-            for (let i = 0; i < 365; i++) {
-                let day = (typeof (wd[i]) === 'number') ? wd[i] : 0;
-                year_revs[i] += day;
-            }
-        });
-
     }
     if (weekdays_revs.length > 1){
         // Sum over all instances
     }
-    return [[label, weekdays_revs], [label, year_revs]]
+    return [label, weekdays_revs]
 }
-
+/*
 function formatYear(sel) {
     let data_list = []
     for (let i = 0; i < 365; i++) {
@@ -181,7 +146,7 @@ function formatYear(sel) {
 
     return data_list
 }
-
+*/
 function updateLegends(selected) {
     // Update Legend 1
     if (selected.first.state !== "" && selected.first.cuisine !== "") {
