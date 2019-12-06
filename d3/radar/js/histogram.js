@@ -141,25 +141,25 @@ function calculateDensity(data, sel, kde) {
     // Compute kernel density estimation
     var density1 =  kde( data
       .filter( function(d){return d.state === sel.first.state && d.category === sel.first.cuisine} ) 
-      .map(function(d){  return d.restaurant_stars; }) )
+      .map(function(d){  return d.recal_stars; }) )
 
   } else if (sel.first.state !== "" && sel.first.cuisine === "") {
 
     hist_svg.select("path").remove()
     var density1 =  kde( data 
       .filter( function(d){return d.state === sel.first.state} )
-      .map(function(d){  return d.restaurant_stars; }) )
+      .map(function(d){  return d.recal_stars; }) )
 
   } else if (sel.first.state === "" && sel.first.cuisine !== "") {
 
     hist_svg.select("path").remove()
     var density1 =  kde( data 
       .filter( function(d){return d.category === sel.first.cuisine} )
-      .map(function(d){  return d.restaurant_stars; }) )
+      .map(function(d){  return d.recal_stars; }) )
 
   } else {
     hist_svg.select("path").remove()
-    var density1 =  kde(data.map(function(d){  return d.restaurant_stars; }))
+    var density1 =  kde(data.map(function(d){  return d.recal_stars; }))
   }
 
   // Density for the second histogram
@@ -169,25 +169,25 @@ function calculateDensity(data, sel, kde) {
     // Compute kernel density estimation
     var density2 =  kde( data
       .filter( function(d){return d.state === sel.second.state && d.category === sel.second.cuisine} ) 
-      .map(function(d){  return d.restaurant_stars; }) )
+      .map(function(d){  return d.recal_stars; }) )
 
   } else if (sel.second.state !== "" && sel.second.cuisine === "") {
 
     hist_svg.select("path").remove()
     var density2 =  kde( data 
       .filter( function(d){return d.state === sel.second.state} )
-      .map(function(d){  return d.restaurant_stars; }) )
+      .map(function(d){  return d.recal_stars; }) )
 
   } else if (sel.second.state === "" && sel.second.cuisine !== "") {
 
     hist_svg.select("path").remove()
     var density2 =  kde( data 
       .filter( function(d){return d.category === sel.second.cuisine} )
-      .map(function(d){  return d.restaurant_stars; }) )
+      .map(function(d){  return d.recal_stars; }) )
 
   } else {
     hist_svg.select("path").remove()
-    var density2 =  kde(data.map(function(d){  return d.restaurant_stars; }))
+    var density2 =  kde(data.map(function(d){  return d.recal_stars; }))
   }
 
   return [density1, density2]

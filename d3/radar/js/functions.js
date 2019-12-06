@@ -171,10 +171,11 @@ function getFromRevs(sel){
 
 function selectedRC(element) {
     //TODO: fix for weekday
-    d3.select(".heatmapSelected2").classed("heatmapSelected2", false)
-    d3.select(".heatmapSelected").classed("heatmapSelected", false).classed("heatmapSelected2", true)
+    d3.select(".radarSelected2").classed("radarSelected2", false)
+    d3.select(".radarSelected").classed("radarSelected", false).classed("radarSelected2", true)
     // Select current item
-    d3.select(element).classed("heatmapSelected", true)
+    d3.select(element).classed("radarSelected", true)
+    console.log(element)
 }
 
 function updateLegends(selected) {

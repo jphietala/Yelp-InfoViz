@@ -84,6 +84,17 @@ stroke:#ff6600;
 stroke-width: 3;
 }
 
+.radarSelected {
+  color: #ffff00;
+stroke:#000000;
+stroke-width: 2;
+}
+
+.radarSelected2 {
+stroke:#000000;
+stroke-width: 2;
+}
+
 .legend {
 font-family: sans-serif;
 fill: #242424;

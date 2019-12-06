@@ -9,7 +9,7 @@ const max = Math.max;
 const sin = Math.sin;
 const cos = Math.cos;
 const HALF_PI = Math.PI / 2;
-const wd_dict = {'Monday':0,'Tuesday':1,'Wednesday':2,'Thursday':3,'Friday':4,'Saturday':5,'Sunday':6};
+const wd_dict = {'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3 ,'Friday': 4, 'Saturday': 5, 'Sunday': 6};
 const RadarChart = function RadarChart(parent_selector, data, options) {
 	//Wraps SVG text - Taken from http://bl.ocks.org/mbostock/7555321
 	const wrap = (text, width) => {
