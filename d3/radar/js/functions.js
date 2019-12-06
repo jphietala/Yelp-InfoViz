@@ -93,13 +93,13 @@ function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
 
     // Line Chart
     updateLinechart(lc);
+    initHeatmap(hm);
 
     // Radar Chart
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
 
     // Histogram
     updateHistogram(hg, selected);
-    updateHeatmap(hm);
 }
 
 function whenLoaded() {
@@ -107,7 +107,7 @@ function whenLoaded() {
     selected.first.weekdays = getFromRevs(selected.first);
     selected.second.weekdays = getFromRevs(selected.second);
     //render(formatYear(selected));
-    initHeatmap(hm_data);
+    //initHeatmap(hm_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     updateHistogram(hg_data, selected);
     updateLinechart(lc_data);
