@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <meta charset="utf-8"></meta>
-  <body>
-    <!-- Create a div where the graph will take place -->
-    <div id="linechart_container"></div>
-  </body>
-</html>
-
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
-
-<script>
-
 // set the dimensions and margins of the graph
 var linechartMargin = {top: 10, right: 30, bottom: 30, left: 60},
 linechartWidth = 960 - linechartMargin.left - linechartMargin.right,
@@ -185,5 +171,3 @@ function updateLinechart(data) {
 d3.csv('../data/y_days_all.csv').then((data) => {
   updateLinechart(data);
 });
-
-</script>
