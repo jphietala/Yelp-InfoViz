@@ -47,10 +47,10 @@ Promise.all([
     heatmap_data_w = data.slice(4,11);
     revs_year_data_w = data.slice(11,18);
     histogram_data_w = data.slice(18,25);
-    var hm_data = histogram_data;
-    var lc_data = revs_year_data;
-    var hg_data = heatmap_data;
-    var rc_data = weekdays_data;
+    hm_data = histogram_data;
+    lc_data = revs_year_data;
+    hg_data = heatmap_data;
+    rc_data = weekdays_data;
 
 }).then(function() {
     whenLoaded();
