@@ -81,7 +81,8 @@ var myHeatmapColor = d3.scaleLinear()
 
 // Initializing the heatmap
 function initHeatmap(data) {
-  
+
+    hm_svg.selectAll("rect").remove()
     hm_svg.selectAll()
 
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
