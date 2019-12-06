@@ -1,3 +1,5 @@
+// Inspired by https://www.d3-graph-gallery.com/line.html
+
 // set the dimensions and margins of the graph
 var linechartMargin = {top: 10, right: 30, bottom: 30, left: 60},
 linechartWidth = 960 - linechartMargin.left - linechartMargin.right,
@@ -41,7 +43,7 @@ function updateLinechart(data) {
   combo2.sort(function(a,b) {
     return a[0]-b[0]
   });
-  
+
   // Add X axis
   var x = d3.scaleLinear()
     .domain([ 0, combo1[combo1.length-1][0] ])
@@ -49,7 +51,7 @@ function updateLinechart(data) {
   xAxis = line_svg.append("g")
     .attr("transform", "translate(0," + linechartHeight + ")")
     .call(d3.axisBottom(x));
-  
+
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([ 0, d3.max(maxrevs) ])
@@ -123,7 +125,7 @@ function updateLinechart(data) {
       // If no selection, back to initial coordinate. Otherwise, update X axis domain
       if(!extent){
         if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-        x.domain([ 0,200 ])
+        x.domain([ 0, combo1[combo1.length-1][0] ])
       }else{
         x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
         line1.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
@@ -152,7 +154,7 @@ function updateLinechart(data) {
 
     // If user double click, reinitialize the chart
     line_svg.on("dblclick",function(){
-      x.domain([ 0, 365 ])
+      x.domain([ 0, combo1[combo1.length-1][0] ])
       xAxis.transition().call(d3.axisBottom(x))
       line1
         .select('.line')
@@ -161,7 +163,7 @@ function updateLinechart(data) {
           .x(function(d) { return x(d[0]) })
           .y(function(d) { return y(d[1]) })
       )
-     x.domain([ 0, 365 ])
+     x.domain([ 0, combo1[combo1.length-1][0] ])
       xAxis.transition().call(d3.axisBottom(x))
       line2
         .select('.line')
