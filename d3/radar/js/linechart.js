@@ -167,7 +167,3 @@ function updateLinechart(data) {
           .y(function(d) { return y(d[1]) })
     )});
 };
-
-d3.csv('../data/y_days_all.csv').then((data) => {
-  updateLinechart(data);
-});
