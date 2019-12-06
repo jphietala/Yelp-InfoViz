@@ -57,14 +57,34 @@ Promise.all([
     whenLoaded();
 });
 
+function updateWeekday(weekday = '') {
+    let hm;
+    let lc;
+    let hg;
+    if (weekday === ''){
+        hm = heatmap_data;
+        lc = revs_year_data;
+        hg = histogram_data;
+    }else {
+        hm = heatmap_data_w[parseInt(weekday)];
+        lc = revs_year_data_w[parseInt(weekday)];
+        hg = histogram_data_w[parseInt(weekday)];
+    }
+    reloadIdioms(lc, hg, hm);
+}
+
 function updateIdioms(state = "", cuisine = "") {
     // Set new selected:
-    if (selected.first === selected.second){
+    if (selected.first === selected.second) {
 
-    }else {
+    } else {
         selected.second = selected.first;
         selected.first = {'state': state, 'cuisine': cuisine};
     }
+    reloadIdioms();
+}
+function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
+
 
     // Update Legend in the top bar
     updateLegends(selected);
@@ -72,16 +92,14 @@ function updateIdioms(state = "", cuisine = "") {
     selected.first.weekdays = getFromRevs(selected.first);
 
     // Line Chart
-    //render(formatYear(selected));
-
-    updateLinechart(revs_year_data);
-
+    updateLinechart(lc);
 
     // Radar Chart
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
 
     // Histogram
-    updateHistogram(histogram_data, selected);
+    updateHistogram(hg, selected);
+    updateHeatmap(hm);
 }
 
 function whenLoaded() {
@@ -92,7 +110,7 @@ function whenLoaded() {
     initHeatmap(hm_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     updateHistogram(hg_data, selected);
-    updateLinechart(revs_year_data);
+    updateLinechart(lc_data);
 }
 
 function getFromRevs(sel){
