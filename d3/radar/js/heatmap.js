@@ -79,12 +79,24 @@ var myHeatmapColor = d3.scaleLinear()
           updateIdioms("",d);
       });
 
-// Initializing the heatmap
+
+
+function updateHeatmap(data) {
+    hm_nodes.data(data, function(d) { return d.States+':'+d.Cuisine; })
+
+    .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
+      .append("svg:title")
+      .text(function(d) { return ["Average rating: " + d.Rating]; })
+
+}
+  // Initializing the heatmap
+
+var hm_nodes;
+
 function initHeatmap(data) {
 
-    hm_svg.selectAll("rect").remove()
 
-    hm_svg.selectAll()
+    hm_nodes = hm_svg.selectAll()
 
       .data(data, function(d) { return d.States+':'+d.Cuisine; })
       .enter()
@@ -99,9 +111,7 @@ function initHeatmap(data) {
           // Find previously selected, unselect
             selectedHM(this);
           updateIdioms(d.States,d.Cuisine);
-      })
+      });
+    updateHeatmap(data);
 
-      .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
-      .append("svg:title")
-      .text(function(d) { return ["Average rating: " + d.Rating]; })
 };

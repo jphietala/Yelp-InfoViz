@@ -66,10 +66,16 @@ function updateWeekday(weekday = '') {
         lc = revs_year_data;
         hg = histogram_data;
     }else {
+
         hm = heatmap_data_w[parseInt(weekday)];
         lc = revs_year_data_w[parseInt(weekday)];
         hg = histogram_data_w[parseInt(weekday)];
+        hm.forEach(d => {
+            d.States = d.states;
+
+          });
     }
+    updateHeatmap(hm);
     reloadIdioms(lc, hg, hm);
 }
 
@@ -93,7 +99,7 @@ function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
 
     // Line Chart
     updateLinechart(lc);
-    initHeatmap(hm);
+    //
 
     // Radar Chart
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
@@ -107,7 +113,7 @@ function whenLoaded() {
     selected.first.weekdays = getFromRevs(selected.first);
     selected.second.weekdays = getFromRevs(selected.second);
     //render(formatYear(selected));
-    //initHeatmap(hm_data);
+    initHeatmap(hm_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     updateHistogram(hg_data, selected);
     updateLinechart(lc_data);
