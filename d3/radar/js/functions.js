@@ -40,6 +40,10 @@ Promise.all([
     d3.csv('data/histo_5.csv'),
     d3.csv('data/histo_6.csv')
 ]).then(data => {
+    hm_data = data[0];
+    rc_data = data[1];
+    lc_data = data[2];
+    hg_data = data[3];
     heatmap_data = data[0];
     weekdays_data = data[1];
     revs_year_data = data[2];
@@ -47,10 +51,7 @@ Promise.all([
     heatmap_data_w = data.slice(4,11);
     revs_year_data_w = data.slice(11,18);
     histogram_data_w = data.slice(18,25);
-    var hm_data = histogram_data;
-    var lc_data = revs_year_data;
-    var hg_data = heatmap_data;
-    var rc_data = weekdays_data;
+
 
 }).then(function() {
     whenLoaded();

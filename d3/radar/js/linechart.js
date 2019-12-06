@@ -166,4 +166,5 @@ function updateLinechart(data) {
           .x(function(d) { return x(d[0]) })
           .y(function(d) { return y(d[1]) })
     )});
+
 };
