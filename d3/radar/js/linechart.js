@@ -41,10 +41,10 @@ function updateLinechart(data) {
   combo2.sort(function(a,b) {
     return a[0]-b[0]
   });
-
+  
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([ 0, 365 ])
+    .domain([ 0, combo1[combo1.length-1][0] ])
     .range([ 0, linechartWidth ]);
   xAxis = line_svg.append("g")
     .attr("transform", "translate(0," + linechartHeight + ")")
