@@ -168,6 +168,6 @@ function updateLinechart(data) {
     )});
 };
 
-d3.csv('../data/y_days_all.csv').then((data) => {
+/*d3.csv('../data/y_days_all.csv').then((data) => {
   updateLinechart(data);
-});
+});*/
