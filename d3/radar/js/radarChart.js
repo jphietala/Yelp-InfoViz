@@ -314,7 +314,7 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 				.attr("fill", "#404040")
 				.text(cfg.legend.title);
 		}
-		let legend = legendZone.append("g")
+		/*let legend = legendZone.append("g")
 			.attr("class", "legend")
 			.attr("height", 100)
 			.attr("width", 200)
@@ -339,7 +339,7 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 		  .attr("font-size", "11px")
 		  .attr("fill", "#737373")
 		  .text(d => d)
-			;
+			;*/
 	}
 	return svg;
 }
