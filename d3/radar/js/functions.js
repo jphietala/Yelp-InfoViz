@@ -168,23 +168,15 @@ function getFromRevs(sel){
     }
     return [label, weekdays_revs]
 }
-/*
-function formatYear(sel) {
-    let data_list = []
-    for (let i = 0; i < 365; i++) {
-        let row = {day: i+1,state: sel.first.revs_year[0], review: sel.first.revs_year[1][i]};
-        data_list.push(row);
-        let row2 = {day: i+1,state: sel.second.revs_year[0], review: sel.second.revs_year[1][i]};
-        data_list.push(row2);
-    }
-    data_list.forEach(d => {
-        d.review = +d.review;
-        d.day = +d.day;
-      });
 
-    return data_list
+function selectedRC(element) {
+    //TODO: fix for weekday
+    d3.select(".heatmapSelected2").classed("heatmapSelected2", false)
+    d3.select(".heatmapSelected").classed("heatmapSelected", false).classed("heatmapSelected2", true)
+    // Select current item
+    d3.select(element).classed("heatmapSelected", true)
 }
-*/
+
 function updateLegends(selected) {
     // Update Legend 1
     if (selected.first.state !== "" && selected.first.cuisine !== "") {

@@ -9,7 +9,7 @@ const max = Math.max;
 const sin = Math.sin;
 const cos = Math.cos;
 const HALF_PI = Math.PI / 2;
-
+const wd_dict = {'Monday':0,'Tuesday':1,'Wednesday':2,'Thursday':3,'Friday':4,'Saturday':5,'Sunday':6};
 const RadarChart = function RadarChart(parent_selector, data, options) {
 	//Wraps SVG text - Taken from http://bl.ocks.org/mbostock/7555321
 	const wrap = (text, width) => {
@@ -186,7 +186,13 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 		.attr("x", (d,i) => rScale(maxValue * cfg.labelFactor) * cos(angleSlice * i - HALF_PI))
 		.attr("y", (d,i) => rScale(maxValue * cfg.labelFactor) * sin(angleSlice * i - HALF_PI))
 		.text(d => d)
-		.call(wrap, cfg.wrapWidth);
+		.call(wrap, cfg.wrapWidth)
+		.on("click", function(d) {
+          console.log("You clicked", d)
+          // Find previously selected, unselect
+            selectedRC(this);
+          updateWeekday(wd_dict[d]);
+      });
 
 	/////////////////////////////////////////////////////////
 	///////////// Draw the radar chart blobs ////////////////
@@ -332,7 +338,8 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 		  .attr("y", (d,i) => i * 20 + 9)
 		  .attr("font-size", "11px")
 		  .attr("fill", "#737373")
-		  .text(d => d);
+		  .text(d => d)
+			;
 	}
 	return svg;
 }
