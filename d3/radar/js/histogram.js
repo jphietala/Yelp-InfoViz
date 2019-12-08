@@ -94,7 +94,7 @@ function updateHistogram(data, sel) {
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
-          .text(function(d) { return [sel.first.state + ", " + sel.first.cuisine]; })
+          .text(function(d) { return updateHover1(sel); })
       });
 
   // Plot the area of histogram 2
@@ -113,7 +113,7 @@ function updateHistogram(data, sel) {
       )
       .on("mouseover", function (d)  {
         d3.select(this).append("svg:title")
-          .text(function(d) { return [sel.second.state + ", " + sel.second.cuisine]; })
+          .text(function(d) { return updateHover2(sel); })
       });
 };
 
@@ -191,4 +191,36 @@ function calculateDensity(data, sel, kde) {
   }
 
   return [density1, density2]
+};
+
+function updateHover1(selected) {
+
+  var returned = "";
+  // Update Legend 1
+  if (selected.first.state !== "" && selected.first.cuisine !== "") {
+    returned = [selected.first.state + ", " + selected.first.cuisine];
+  } else if (selected.first.state !== "" && selected.first.cuisine === "") {
+    returned = [selected.first.state];
+  } else if (selected.first.state === "" && selected.first.cuisine !== "") {
+    returned = [selected.first.cuisine];
+  } else {
+    returned = ["Total"];
+  }
+  return returned;
+};
+
+function updateHover2(selected) {
+
+  var returned = "";
+  // Update Legend 2
+  if (selected.second.state !== "" && selected.second.cuisine !== "") {
+    returned = [selected.second.state + ", " + selected.second.cuisine];
+  } else if (selected.second.state !== "" && selected.second.cuisine === "") {
+    returned = [selected.second.state];
+  } else if (selected.second.state === "" && selected.second.cuisine !== "") {
+    returned = [selected.second.cuisine];
+  } else {
+    returned = ["Total"];
+  }
+  return returned;
 };
