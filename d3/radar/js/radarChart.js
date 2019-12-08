@@ -41,7 +41,7 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	const cfg = {
 	 w: 600,				//Width of the circle
 	 h: 600,				//Height of the circle
-	 margin: {top: 20, right: 20, bottom: 20, left: 20}, //The margins of the SVG
+	 margin: {top: 0, right: 0, bottom: 0, left: 0}, //The margins of the SVG
 	 levels: 3,				//How many levels or inner circles should there be drawn
 	 maxValue: 0, 			//What is the value that the biggest circle will represent
 	 labelFactor: 1.25, 	//How much farther than the radius of the outer circle should the labels be placed
@@ -110,7 +110,7 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	// Add title 
 	g.append('text')
 	.attr('class', 'titleRadar')
-	.attr('y', -200)
+	.attr('y', -205)
 	.attr('x', -150)
 	.attr('font-size', 18)
 	.text(titleRadar);

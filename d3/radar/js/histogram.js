@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
-var histogramMargin = {top: 20, right: 20, bottom: 50, left: 50},
-  histogramWidth = 480 - histogramMargin.left - histogramMargin.right,
+var histogramMargin = {top: 20, right: 15, bottom: 40, left: 50},
+  histogramWidth = 500 - histogramMargin.left - histogramMargin.right,
   histogramHeight = 420 - histogramMargin.top - histogramMargin.bottom;
 
 // append the svg object to the body of the page
@@ -31,10 +31,10 @@ hist_svg.append("g")
 
 // add text label for the x axis
 hist_svg.append("text")             
-.attr("transform",
+  .attr("transform",
       "translate(" + (histogramWidth/2) + " ," + (histogramHeight + histogramMargin.top + 15) + ")")
-.style("text-anchor", "middle")
-.text("Review Averages");
+  .style("text-anchor", "middle")
+  .text("Review Averages");
 
 // add the y Axis
 var histogramY = d3.scaleLinear()
@@ -50,29 +50,29 @@ hist_svg.append("text")
   .attr("x",0 - (histogramHeight / 2))
   .attr("dy", "1em")
   .style("text-anchor", "middle")
-  .text("Value");
+  .text("Relative frequency");
 
 hist_svg.append("line")
   .attr("x1", 0)
   .attr("y1", 0)
   .attr("x2", 0)
-  .attr("y2", histogramWidth - 55)
-  .style("stroke", "black")
-  .style("stroke-width", 0.5);
+  .attr("y2", histogramWidth - 70)
+  .style("stroke", "#000000")
+  .style("stroke-width", 1);
 
 hist_svg.append("line")
   .attr("x1", 0)
   .attr("y1", histogramHeight)
   .attr("x2", histogramWidth)
   .attr("y2", histogramHeight)
-  .style("stroke", "black")
-  .style("stroke-width", 0.5);
+  .style("stroke", "#000000")
+  .style("stroke-width", 1);
 
 // Initialize the histogram
 function updateHistogram(data, sel) {
 
   // Set kernel parameters and calculate the estimation
-  var kde = kernelDensityEstimator(kernelEpanechnikov(0.4), histogramX.ticks(100))
+  var kde = kernelDensityEstimator(kernelEpanechnikov(0.4), histogramX.ticks(50))
  
   density = calculateDensity(data, sel, kde);
   density1 = density[0]

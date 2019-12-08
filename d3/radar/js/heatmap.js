@@ -8,9 +8,9 @@ function selectedHM(element) {
 }
 
 // set the dimensions and margins of the graph
-var heatmapMargin = {top: 30, right: 10, bottom: 20, left: 110},
+var heatmapMargin = {top: 40, right: 10, bottom: 20, left: 110},
   heatmapWidth = 600 - heatmapMargin.left - heatmapMargin.right,
-  heatmapHeight = 800 - heatmapMargin.top - heatmapMargin.bottom;
+  heatmapHeight = 860 - heatmapMargin.top - heatmapMargin.bottom;
 
 // append the svg object to the body of the page
 var hm_svg = d3.select("#heatmap_container")
@@ -32,7 +32,7 @@ var titleHM = 'Average Rating of State/Cuisine-Combination'
 // Add title 
 hm_svg.append('text')
   .attr('class', 'titleHM')
-  .attr('y', -10)
+  .attr('y', -15)
   .attr('x', 60)
   .attr('font-size', 18)
   .text(titleHM); 
@@ -79,8 +79,6 @@ var myHeatmapColor = d3.scaleLinear()
           updateIdioms("",d);
       });
 
-
-
 function updateHeatmap(data) {
     hm_nodes.data(data, function(d) { return d.States+':'+d.Cuisine; })
 
@@ -94,7 +92,6 @@ function updateHeatmap(data) {
 var hm_nodes;
 
 function initHeatmap(data) {
-
 
     hm_nodes = hm_svg.selectAll()
 

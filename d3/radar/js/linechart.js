@@ -1,9 +1,9 @@
 // Inspired by https://www.d3-graph-gallery.com/line.html
 
 // set the dimensions and margins of the graph
-var linechartMargin = {top: 10, right: 30, bottom: 30, left: 60},
+var linechartMargin = {top: 10, right: 30, bottom: 35, left: 60},
 linechartWidth = 960 - linechartMargin.left - linechartMargin.right,
-linechartHeight = 400 - linechartMargin.top - linechartMargin.bottom;
+linechartHeight = 430 - linechartMargin.top - linechartMargin.bottom;
 
 // append the svg object to the body of the page
 var line_svg = d3.select("#linechart_container")
@@ -46,11 +46,18 @@ function updateLinechart(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([ 0, combo1[combo1.length-1][0] ])
+    .domain([ 1, combo1[combo1.length-1][0] ])
     .range([ 0, linechartWidth ]);
   xAxis = line_svg.append("g")
     .attr("transform", "translate(0," + linechartHeight + ")")
     .call(d3.axisBottom(x));
+
+  // add text label for the x axis
+  line_svg.append("text")             
+    .attr("transform",
+        "translate(" + (linechartWidth/2) + " ," + (linechartHeight + linechartMargin.top + 20) + ")")
+    .style("text-anchor", "middle")
+    .text("Day / Week");
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -58,6 +65,15 @@ function updateLinechart(data) {
     .range([ linechartHeight, 0 ]);
   yAxis = line_svg.append("g")
     .call(d3.axisLeft(y));
+
+  // add text label for the y axis
+  line_svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -50)
+    .attr("x",0 - (linechartHeight / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("Number of reviews");
 
   // Add a clipPath: everything out of this area won't be drawn.
   var clip = line_svg.append("defs").append("line_svg:clipPath")
@@ -91,6 +107,11 @@ function updateLinechart(data) {
         .x(function(d) { return x(d[0]) })
         .y(function(d) { return y(d[1]) })
         )
+        .on("mouseover", function (d)  {
+          console.log(d)
+          d3.select(this).append("svg:title")
+            .text(function(d) { return "NV"; })
+        });
 
     line2.append("path")
       .datum(combo2)
