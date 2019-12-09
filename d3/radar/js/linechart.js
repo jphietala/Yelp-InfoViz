@@ -14,35 +14,36 @@ var line_svg = d3.select("#linechart_container")
     .attr("transform",
           "translate(" + linechartMargin.left + "," + linechartMargin.top + ")");
 
+// add text label for the x axis
+line_svg.append("text")             
+.attr("transform",
+    "translate(" + (linechartWidth/2) + " ," + (linechartHeight + linechartMargin.top + 20) + ")")
+.style("text-anchor", "middle")
+.text("Day / Week");
+
+// add text label for the y axis
+line_svg.append("text")
+.attr("transform", "rotate(-90)")
+.attr("y", -50)
+.attr("x",0 - (linechartHeight / 2))
+.attr("dy", "1em")
+.style("text-anchor", "middle")
+.text("Number of reviews");
+
 // Make the linechart
 function updateLinechart(data, selected) {
 
   // Remove previously drawn svg elements; axis and lines so that they don't duplicate
   line_svg.selectAll("path").remove()
   line_svg.selectAll("g").remove()
-  console.log(selected)
-  // Initializing list for getting max value of number of reviews
-  var maxrevs = [];
-
-  // Filtering data for the first line chart
-  var combo1 =  data 
-      .filter( function(d){return d.state === "NV" && d.category === "Pizza"} )
-      .map(function(d){
-        maxrevs.push(parseInt(d.num_revs))
-        return [parseInt(d.day), parseInt(d.num_revs)]; })
-  combo1.sort(function(a,b) {
-    return a[0]-b[0]
-  });
   
-  // Filtering data for the second line chart
-  var combo2 = data
-      .filter( function(d){return d.state === "NV" && d.category === "Delis"} )
-      .map(function(d){
-        maxrevs.push(parseInt(d.num_revs))
-        return [parseInt(d.day), parseInt(d.num_revs)]; })
-  combo2.sort(function(a,b) {
-    return a[0]-b[0]
-  });
+  // Filter data
+  returned = linechartFilter(data, selected)
+  combo1 = returned[0]
+  combo2 = returned[1]
+  maxrevs = returned[2]
+
+  console.log(returned)
 
   // Add X axis
   var x = d3.scaleLinear()
@@ -52,28 +53,12 @@ function updateLinechart(data, selected) {
     .attr("transform", "translate(0," + linechartHeight + ")")
     .call(d3.axisBottom(x));
 
-  // add text label for the x axis
-  line_svg.append("text")             
-    .attr("transform",
-        "translate(" + (linechartWidth/2) + " ," + (linechartHeight + linechartMargin.top + 20) + ")")
-    .style("text-anchor", "middle")
-    .text("Day / Week");
-
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([ 0, d3.max(maxrevs) ])
     .range([ linechartHeight, 0 ]);
   yAxis = line_svg.append("g")
     .call(d3.axisLeft(y));
-
-  // add text label for the y axis
-  line_svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -50)
-    .attr("x",0 - (linechartHeight / 2))
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("Number of reviews");
 
   // Add a clipPath: everything out of this area won't be drawn.
   var clip = line_svg.append("defs").append("line_svg:clipPath")
@@ -194,4 +179,94 @@ function updateLinechart(data, selected) {
           .y(function(d) { return y(d[1]) })
     )});
 
+};
+
+function linechartFilter(data, sel) {
+
+  // Initialize variables
+  var combo1;
+  var combo2;
+
+  // Initializing list for getting max value of number of reviews
+  var maxrevs = [];
+
+  console.log(sel)
+
+  // Filtering data for the first line
+  if (sel.first.state !== "" && sel.first.cuisine !== "") {
+  
+  var combo1 =  data 
+    .filter( function(d){return d.state === sel.first.state && d.category === sel.first.cuisine} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo1.sort(function(a,b) { return a[0]-b[0] });
+
+  } else if (sel.first.state !== "" && sel.first.cuisine === "") {
+
+  var combo1 =  data 
+    .filter( function(d){return d.state === sel.first.state} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo1.sort(function(a,b) { return a[0]-b[0] });
+
+  } else if (sel.first.state === "" && sel.first.cuisine !== "") {
+
+  var combo1 =  data 
+    .filter( function(d){return d.category === sel.first.cuisine} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo1.sort(function(a,b) { return a[0]-b[0] });
+
+  } else { //Replace this with the total
+  
+    var combo1 =  data 
+    .filter( function(d){return d.state === "NV" && d.category === "Pizza"} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo1.sort(function(a,b) { return a[0]-b[0] });
+  }
+
+  // Filtering data for the second line
+  if (sel.second.state !== "" && sel.second.cuisine !== "") {
+
+  var combo2 = data
+    .filter( function(d){return d.state === sel.second.state && d.category === sel.second.cuisine} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo2.sort(function(a,b) { return a[0]-b[0] });
+
+  } else if (sel.second.state !== "" && sel.second.cuisine === "") {
+
+  var combo2 = data
+    .filter( function(d){return d.state === sel.second.state} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo2.sort(function(a,b) { return a[0]-b[0] });
+
+  } else if (sel.second.state === "" && sel.second.cuisine !== "") {
+
+  var combo2 = data
+    .filter( function(d){return d.category === sel.second.cuisine} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo2.sort(function(a,b) { return a[0]-b[0] });
+
+  } else { //replace this with the total
+  
+  var combo2 = data
+    .filter( function(d){return d.state === "NV" && d.category === "Delis"} )
+    .map(function(d){
+      maxrevs.push(parseInt(d.num_revs))
+      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  combo2.sort(function(a,b) { return a[0]-b[0] });
+  }
+
+  return [combo1, combo2, maxrevs];
 };
