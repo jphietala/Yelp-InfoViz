@@ -58,7 +58,7 @@ hist_svg.append("line")
   .attr("x2", 0)
   .attr("y2", histogramWidth - 70)
   .style("stroke", "#000000")
-  .style("stroke-width", 1);
+  .style("stroke-width", 0.8);
 
 hist_svg.append("line")
   .attr("x1", 0)
@@ -66,7 +66,7 @@ hist_svg.append("line")
   .attr("x2", histogramWidth)
   .attr("y2", histogramHeight)
   .style("stroke", "#000000")
-  .style("stroke-width", 1);
+  .style("stroke-width", 0.8);
 
 // Initialize the histogram
 function updateHistogram(data, sel) {

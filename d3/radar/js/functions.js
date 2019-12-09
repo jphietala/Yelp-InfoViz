@@ -96,9 +96,9 @@ function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
     updateLegends(selected);
 
     selected.first.weekdays = getFromRevs(selected.first);
-
+    
     // Line Chart
-    updateLinechart(lc);
+    updateLinechart(lc, selected);
     //
 
     // Radar Chart
@@ -116,7 +116,7 @@ function whenLoaded() {
     initHeatmap(hm_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     updateHistogram(hg_data, selected);
-    updateLinechart(lc_data);
+    updateLinechart(lc_data, selected);
 }
 
 function getFromRevs(sel){
