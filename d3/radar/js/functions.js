@@ -200,4 +200,12 @@ function updateLegends(selected) {
     } else {
         document.getElementById("p2").innerHTML = "Total";
     }
+    console.log(selected)
+    // Update Weekday
+    if (selected.first.weekdays !== "") {
+        document.getElementById("p3").innerHTML = "Weekday: " + selected.first.weekdays;
+    } else {
+        document.getElementById("p3").innerHTML = "Weekday: All";
+    }
+
 }
