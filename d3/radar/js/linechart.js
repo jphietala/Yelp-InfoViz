@@ -43,8 +43,6 @@ function updateLinechart(data, selected) {
   combo2 = returned[1]
   maxrevs = returned[2]
 
-  console.log(returned)
-
   // Add X axis
   var x = d3.scaleLinear()
     .domain([ 1, combo1[combo1.length-1][0] ])
@@ -189,8 +187,6 @@ function linechartFilter(data, sel) {
 
   // Initializing list for getting max value of number of reviews
   var maxrevs = [];
-
-  console.log(sel)
 
   // Filtering data for the first line
   if (sel.first.state !== "" && sel.first.cuisine !== "") {
