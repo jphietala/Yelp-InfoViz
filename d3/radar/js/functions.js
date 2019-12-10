@@ -77,7 +77,7 @@ function updateWeekday(weekday = '',wd_str='') {
           });
     }
     updateHeatmap(hm);
-    reloadIdioms(lc, hg, hm);
+    reloadIdioms(false,lc, hg, hm);
     lc_data = lc;
     hg_data = hg;
     hm_data = hm;
@@ -94,7 +94,7 @@ function updateIdioms(state = "", cuisine = "") {
 
     reloadIdioms();
 }
-function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
+function reloadIdioms(reloadRC = true, lc = lc_data,hg = hg_data, hm = hm_data) {
 
 
     // Update Legend in the top bar
@@ -107,8 +107,9 @@ function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
     //
 
     // Radar Chart
-    updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
-
+    if (reloadRC) {
+        updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
+    }
     // Histogram
     updateHistogram(hg, selected);
 }
@@ -176,8 +177,8 @@ function getFromRevs(sel){
 
 function selectedRC(element) {
     //TODO: fix for weekday
-    d3.select(".radarSelected2").classed("radarSelected2", false)
-    d3.select(".radarSelected").classed("radarSelected", false).classed("radarSelected2", true)
+    d3.select(".radarSelected").classed("radarSelected", false)
+    //d3.select(".radarSelected").classed("radarSelected", false).classed("radarSelected2", true)
     // Select current item
     d3.select(element).classed("radarSelected", true)
     console.log(element)
