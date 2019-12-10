@@ -257,7 +257,7 @@ function linechartFilter(data, sel) {
   }
 
 
-  
+
 
   // Filtering data for the second line
   if (sel.second.state !== "" && sel.second.cuisine !== "") {
