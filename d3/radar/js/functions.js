@@ -78,6 +78,9 @@ function updateWeekday(weekday = '',wd_str='') {
     }
     updateHeatmap(hm);
     reloadIdioms(lc, hg, hm);
+    lc_data = lc;
+    hg_data = hg;
+    hm_data = hm;
 }
 
 function updateIdioms(state = "", cuisine = "") {
@@ -88,6 +91,7 @@ function updateIdioms(state = "", cuisine = "") {
         selected.second = selected.first;
         selected.first = {'state': state, 'cuisine': cuisine};
     }
+
     reloadIdioms();
 }
 function reloadIdioms(lc = lc_data,hg = hg_data, hm = hm_data) {
