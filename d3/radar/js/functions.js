@@ -211,8 +211,12 @@ function updateLegends(selected) {
     // Update Weekday
     if (selected.weekday.string !== "") {
         document.getElementById("p3").innerHTML = "Weekday: " + selected.weekday.string;
+        d3.select(".removeWeekday").classed("hideX", false)
+
     } else {
         document.getElementById("p3").innerHTML = "Weekday: All";
+        d3.select(".removeWeekday").classed("hideX", true)
+
     }
 
 }
