@@ -118,6 +118,7 @@ function whenLoaded() {
 
     selected.first.weekdays = getFromRevs(selected.first);
     selected.second.weekdays = getFromRevs(selected.second);
+    selected.weekday = {id:'',string:''};
     //render(formatYear(selected));
     initHeatmap(hm_data);
     updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
@@ -208,7 +209,7 @@ function updateLegends(selected) {
     }
     console.log(selected)
     // Update Weekday
-    if (selected.first.weekdays !== "") {
+    if (selected.weekday.string !== "") {
         document.getElementById("p3").innerHTML = "Weekday: " + selected.weekday.string;
     } else {
         document.getElementById("p3").innerHTML = "Weekday: All";
