@@ -172,6 +172,9 @@ function getFromRevs(sel){
     if (weekdays_revs.length > 1){
         // Sum over all instances
     }
+    while(weekdays_revs.length < 7){
+        weekdays_revs.push(0);
+    }
     return [label, weekdays_revs]
 }
 
@@ -204,7 +207,7 @@ function updateLegends(selected) {
     } else {
         document.getElementById("p2").innerHTML = "Total";
     }
-    console.log(selected)
+    //console.log(selected)
     // Update Weekday
     if (selected.weekday.string !== "") {
         document.getElementById("p3").innerHTML = "Weekday: " + selected.weekday.string;
