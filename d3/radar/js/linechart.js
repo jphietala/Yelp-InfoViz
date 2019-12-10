@@ -3,7 +3,7 @@
 // set the dimensions and margins of the graph
 var linechartMargin = {top: 40, right: 20, bottom: 35, left: 55},
 linechartWidth = 960 - linechartMargin.left - linechartMargin.right,
-linechartHeight = 450 - linechartMargin.top - linechartMargin.bottom;
+linechartHeight = 460 - linechartMargin.top - linechartMargin.bottom;
 
 // append the svg object to the body of the page
 var line_svg = d3.select("#linechart_container")
