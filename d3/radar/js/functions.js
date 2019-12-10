@@ -106,7 +106,7 @@ function reloadIdioms(reloadRC = true, lc = lc_data,hg = hg_data, hm = hm_data) 
     //
 
     // Radar Chart
-    if (reloadRC && selected.weekday.id === '') {
+    if (reloadRC) {
         updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     }
     // Histogram
@@ -175,9 +175,11 @@ function getFromRevs(sel){
     return [label, weekdays_revs]
 }
 
-function selectedRC(element) {
+function selectedRC(element='') {
     d3.select(".radarSelected").classed("radarSelected", false)
-    d3.select(element).classed("radarSelected", true)
+    if (element !== '') {
+        d3.select(element).classed("radarSelected", true)
+    }
 }
 
 function updateLegends(selected) {

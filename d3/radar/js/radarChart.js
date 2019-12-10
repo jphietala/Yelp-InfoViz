@@ -179,13 +179,19 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 
 	//Append the labels at each axis
 	axis.append("text")
-		.attr("class", "legend")
+		.attr("class", function(d) {
+			let selectd = "";
+			if (d === selected.weekday.string){ selectd = "radarSelected"};
+			return "legend " + selectd
+		})
 		.style("font-size", "11px")
 		.attr("text-anchor", "middle")
 		.attr("dy", "0.35em")
 		.attr("x", (d,i) => rScale(maxValue * cfg.labelFactor) * cos(angleSlice * i - HALF_PI))
 		.attr("y", (d,i) => rScale(maxValue * cfg.labelFactor) * sin(angleSlice * i - HALF_PI))
 		.text(d => d)
+		.attr('id',d => d)
+
 		.call(wrap, cfg.wrapWidth)
 		.on("click", function(d) {
           console.log("You clicked", d)
