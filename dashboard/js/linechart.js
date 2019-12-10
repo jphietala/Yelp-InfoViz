@@ -1,8 +1,8 @@
 // Inspired by https://www.d3-graph-gallery.com/line.html
 
 // set the dimensions and margins of the graph
-var linechartMargin = {top: 40, right: 20, bottom: 35, left: 55},
-linechartWidth = 960 - linechartMargin.left - linechartMargin.right,
+var linechartMargin = {top: 40, right: 20, bottom: 35, left: 60},
+linechartWidth = 950 - linechartMargin.left - linechartMargin.right,
 linechartHeight = 460 - linechartMargin.top - linechartMargin.bottom;
 
 // append the svg object to the body of the page
@@ -33,7 +33,7 @@ line_svg.append("text")
 // add text label for the y axis
 line_svg.append("text")
 .attr("transform", "rotate(-90)")
-.attr("y", -50)
+.attr("y", -55)
 .attr("x",0 - (linechartHeight / 2))
 .attr("dy", "1em")
 .style("text-anchor", "middle")

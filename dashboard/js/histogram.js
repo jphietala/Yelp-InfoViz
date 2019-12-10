@@ -1,3 +1,5 @@
+// Inspired by https://www.d3-graph-gallery.com/density.html
+
 // set the dimensions and margins of the graph
 var histogramMargin = {top: 30, right: 15, bottom: 50, left: 50},
   histogramWidth = 500 - histogramMargin.left - histogramMargin.right,

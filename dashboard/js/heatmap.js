@@ -1,4 +1,4 @@
-// Inspired by https://www.d3-graph-gallery.com/graph/heatmap_basic.html
+// Inspired by https://www.d3-graph-gallery.com/heatmap
 
 function selectedHM(element) {
     d3.select(".heatmapSelected2").classed("heatmapSelected2", false)
