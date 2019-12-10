@@ -113,11 +113,11 @@ margin-left: 30px;
 }
 
 .topbar button {
-float: left;
+float: right;
 height: 27.5px;
 width: 50px;
 text-align: center;
-  margin: 20px;
+margin: 20px;
 }
 
 .topbarLegend {
