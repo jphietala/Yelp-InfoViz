@@ -106,12 +106,12 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	let g = svg.append("g")
 			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
 
-	const titleRadar = 'Reviews per State/Cuisine and Weekday';
+	const titleRadar = 'Number of Reviews per Weekday';
 	// Add title 
 	g.append('text')
 	.attr('class', 'titleRadar')
 	.attr('y', -205)
-	.attr('x', -150)
+	.attr('x', -130)
 	.attr('font-size', 18)
 	.text(titleRadar);
 
