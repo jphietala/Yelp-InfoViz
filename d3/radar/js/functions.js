@@ -91,7 +91,6 @@ function updateIdioms(state = "", cuisine = "") {
         selected.second = selected.first;
         selected.first = {'state': state, 'cuisine': cuisine};
     }
-
     reloadIdioms();
 }
 function reloadIdioms(reloadRC = true, lc = lc_data,hg = hg_data, hm = hm_data) {
@@ -107,7 +106,7 @@ function reloadIdioms(reloadRC = true, lc = lc_data,hg = hg_data, hm = hm_data) 
     //
 
     // Radar Chart
-    if (reloadRC) {
+    if (reloadRC && selected.weekday.id === '') {
         updateRadarChart([selected.first.weekdays, selected.second.weekdays]);
     }
     // Histogram
@@ -177,12 +176,8 @@ function getFromRevs(sel){
 }
 
 function selectedRC(element) {
-    //TODO: fix for weekday
     d3.select(".radarSelected").classed("radarSelected", false)
-    //d3.select(".radarSelected").classed("radarSelected", false).classed("radarSelected2", true)
-    // Select current item
     d3.select(element).classed("radarSelected", true)
-    console.log(element)
 }
 
 function updateLegends(selected) {
