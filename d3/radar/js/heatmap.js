@@ -106,8 +106,10 @@ function initHeatmap(data) {
       .on("click", function(d) {
           console.log("You clicked", d.States+':'+d.Cuisine+':'+d.Rating)
           // Find previously selected, unselect
-            selectedHM(this);
-          updateIdioms(d.States,d.Cuisine);
+          if(d.Rating != 0.0) {
+              selectedHM(this);
+              updateIdioms(d.States, d.Cuisine);
+          }
       });
     updateHeatmap(data);
 
