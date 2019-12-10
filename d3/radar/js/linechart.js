@@ -256,6 +256,9 @@ function linechartFilter(data, sel) {
   combo1.sort(function(a,b) { return a[0]-b[0] });
   }
 
+
+  
+
   // Filtering data for the second line
   if (sel.second.state !== "" && sel.second.cuisine !== "") {
 
@@ -290,7 +293,7 @@ function linechartFilter(data, sel) {
             .key(function(d) { return d.day})
             .rollup(function(d) {
                 return d3.sum(d, function(g) {return g.num_revs; });
-            }).entries(data.filter( function(d){return d.category === sel.first.cuisine} ));
+            }).entries(data.filter( function(d){return d.category === sel.second.cuisine} ));
       combo2 = [];
     data1[0].values.forEach( function (d) {
         combo2.push([parseInt(d.key),parseInt(d.value)]);
