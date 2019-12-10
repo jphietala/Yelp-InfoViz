@@ -27,13 +27,13 @@ var heatmapCuisines = ['Diners', 'Canadian (New)', 'Fast Food', 'Bakeries', 'Tha
 'Korean', 'French', 'Sandwiches', 'Desserts', 'Mexican', 'Pizza', 'Steakhouses', 'Seafood', 'Delis', 'Barbeque', 'Tex-Mex',
 'Hot Dogs', 'Chicken Wings', 'Salad', 'Vegetarian', 'Indian', 'Caribbean', 'Greek', 'Latin American', 'Soup', 'Middle Eastern', 'German']
 
-var titleHM = 'Average Rating of State/Cuisine-Combination'
+var titleHM = 'Average Restaurant Rating'
 
 // Add title 
 hm_svg.append('text')
   .attr('class', 'titleHM')
   .attr('y', -15)
-  .attr('x', 60)
+  .attr('x', 132)
   .attr('font-size', 18)
   .text(titleHM); 
 

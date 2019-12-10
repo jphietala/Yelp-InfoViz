@@ -1,7 +1,7 @@
 // Inspired by https://www.d3-graph-gallery.com/line.html
 
 // set the dimensions and margins of the graph
-var linechartMargin = {top: 10, right: 30, bottom: 35, left: 60},
+var linechartMargin = {top: 40, right: 30, bottom: 40, left: 60},
 linechartWidth = 960 - linechartMargin.left - linechartMargin.right,
 linechartHeight = 430 - linechartMargin.top - linechartMargin.bottom;
 
@@ -14,10 +14,19 @@ var line_svg = d3.select("#linechart_container")
     .attr("transform",
           "translate(" + linechartMargin.left + "," + linechartMargin.top + ")");
 
+// Add title 
+var titleLc = 'Number of Reviews per Day / Week';
+line_svg.append('text')
+  .attr('class', 'titleLc')
+  .attr('y', -20)
+  .attr('x', 300)
+  .attr('font-size', 18)
+  .text(titleLc);
+
 // add text label for the x axis
 line_svg.append("text")             
 .attr("transform",
-    "translate(" + (linechartWidth/2) + " ," + (linechartHeight + linechartMargin.top + 20) + ")")
+    "translate(" + (linechartWidth/2) + " ," + (linechartHeight + linechartMargin.top - 10) + ")")
 .style("text-anchor", "middle")
 .text("Day / Week");
 
@@ -129,7 +138,7 @@ function updateLinechart(data, selected) {
       // If no selection, back to initial coordinate. Otherwise, update X axis domain
       if(!extent){
         if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-        x.domain([ 0, combo1[combo1.length-1][0] ])
+        x.domain([ 1, combo1[combo1.length-1][0] ])
       }else{
         x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
         line1.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
@@ -158,7 +167,7 @@ function updateLinechart(data, selected) {
 
     // If user double click, reinitialize the chart
     line_svg.on("dblclick",function(){
-      x.domain([ 0, combo1[combo1.length-1][0] ])
+      x.domain([ 1, combo1[combo1.length-1][0] ])
       xAxis.transition().call(d3.axisBottom(x))
       line1
         .select('.line')
@@ -167,7 +176,7 @@ function updateLinechart(data, selected) {
           .x(function(d) { return x(d[0]) })
           .y(function(d) { return y(d[1]) })
       )
-     x.domain([ 0, combo1[combo1.length-1][0] ])
+     x.domain([ 1, combo1[combo1.length-1][0] ])
       xAxis.transition().call(d3.axisBottom(x))
       line2
         .select('.line')
