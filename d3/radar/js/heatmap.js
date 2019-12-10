@@ -10,7 +10,7 @@ function selectedHM(element) {
 // set the dimensions and margins of the graph
 var heatmapMargin = {top: 40, right: 10, bottom: 20, left: 110},
   heatmapWidth = 600 - heatmapMargin.left - heatmapMargin.right,
-  heatmapHeight = 860 - heatmapMargin.top - heatmapMargin.bottom;
+  heatmapHeight = 900 - heatmapMargin.top - heatmapMargin.bottom;
 
 // append the svg object to the body of the page
 var hm_svg = d3.select("#heatmap_container")

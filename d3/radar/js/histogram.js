@@ -1,5 +1,5 @@
 // set the dimensions and margins of the graph
-var histogramMargin = {top: 20, right: 15, bottom: 40, left: 50},
+var histogramMargin = {top: 30, right: 15, bottom: 50, left: 50},
   histogramWidth = 500 - histogramMargin.left - histogramMargin.right,
   histogramHeight = 420 - histogramMargin.top - histogramMargin.bottom;
 
@@ -16,7 +16,7 @@ var titleHist = 'Distribution of Ratings';
 // Add title 
 hist_svg.append('text')
   .attr('class', 'titleHist')
-  .attr('y', 0)
+  .attr('y', -10)
   .attr('x', 130)
   .attr('font-size', 18)
   .text(titleHist);
@@ -56,7 +56,7 @@ hist_svg.append("line")
   .attr("x1", 0)
   .attr("y1", 0)
   .attr("x2", 0)
-  .attr("y2", histogramWidth - 70)
+  .attr("y2", histogramWidth - 90)
   .style("stroke", "#000000")
   .style("stroke-width", 0.8);
 
