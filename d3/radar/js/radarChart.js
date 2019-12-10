@@ -191,7 +191,8 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
           console.log("You clicked", d)
           // Find previously selected, unselect
             selectedRC(this);
-          updateWeekday(wd_dict[d]);
+
+          updateWeekday(wd_dict[d],d);
       });
 
 	/////////////////////////////////////////////////////////

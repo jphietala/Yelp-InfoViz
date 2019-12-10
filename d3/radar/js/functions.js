@@ -57,7 +57,8 @@ Promise.all([
     whenLoaded();
 });
 
-function updateWeekday(weekday = '') {
+function updateWeekday(weekday = '',wd_str='') {
+    selected.weekday  = {id: weekday,string: wd_str};
     let hm;
     let lc;
     let hg;
@@ -203,7 +204,7 @@ function updateLegends(selected) {
     console.log(selected)
     // Update Weekday
     if (selected.first.weekdays !== "") {
-        document.getElementById("p3").innerHTML = "Weekday: " + selected.first.weekdays;
+        document.getElementById("p3").innerHTML = "Weekday: " + selected.weekday.string;
     } else {
         document.getElementById("p3").innerHTML = "Weekday: All";
     }
