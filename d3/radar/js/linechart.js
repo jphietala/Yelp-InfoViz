@@ -208,30 +208,51 @@ function linechartFilter(data, sel) {
   combo1.sort(function(a,b) { return a[0]-b[0] });
 
   } else if (sel.first.state !== "" && sel.first.cuisine === "") {
+        const data1 = d3.nest()
+            .key(function(d) { return d.state;})
+            .key(function(d) { return d.day})
+            .rollup(function(d) {
+                return d3.sum(d, function(g) {return g.num_revs; });
+            }).entries(data.filter( function(d){return d.state === sel.first.state} ));
+      var combo1 = [];
+    data1[0].values.forEach( function (d) {
+        combo1.push([parseInt(d.key),parseInt(d.value)]);
+        maxrevs.push(parseInt(d.value))
 
-  var combo1 =  data 
-    .filter( function(d){return d.state === sel.first.state} )
-    .map(function(d){
-      maxrevs.push(parseInt(d.num_revs))
-      return [parseInt(d.day), parseInt(d.num_revs)]; })
+    });
+
   combo1.sort(function(a,b) { return a[0]-b[0] });
 
   } else if (sel.first.state === "" && sel.first.cuisine !== "") {
+ // ############# NO STATE ##########
+        const data1 = d3.nest()
+            .key(function(d) { return d.category;})
+            .key(function(d) { return d.day})
+            .rollup(function(d) {
+                return d3.sum(d, function(g) {return g.num_revs; });
+            }).entries(data.filter( function(d){return d.category === sel.first.cuisine} ));
+      var combo1 = [];
+    data1[0].values.forEach( function (d) {
+        combo1.push([parseInt(d.key),parseInt(d.value)]);
+        maxrevs.push(parseInt(d.value))
 
-  var combo1 =  data 
-    .filter( function(d){return d.category === sel.first.cuisine} )
-    .map(function(d){
-      maxrevs.push(parseInt(d.num_revs))
-      return [parseInt(d.day), parseInt(d.num_revs)]; })
+    });
+
   combo1.sort(function(a,b) { return a[0]-b[0] });
 
-  } else { //Replace this with the total
-  
-    var combo1 =  data 
-    .filter( function(d){return d.state === "NV" && d.category === "Pizza"} )
-    .map(function(d){
-      maxrevs.push(parseInt(d.num_revs))
-      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  } else {
+      //################ TOTAL ################
+        const data1 = d3.nest()
+            .key(function(d) { return d.day})
+            .rollup(function(d) {
+                return d3.sum(d, function(g) {return g.num_revs; });
+            }).entries(data);
+      var combo1 = [];
+        data1.forEach( function (d) {
+        combo1.push([parseInt(d.key),parseInt(d.value)]);
+        maxrevs.push(parseInt(d.value))
+    });
+
   combo1.sort(function(a,b) { return a[0]-b[0] });
   }
 
@@ -246,30 +267,52 @@ function linechartFilter(data, sel) {
   combo2.sort(function(a,b) { return a[0]-b[0] });
 
   } else if (sel.second.state !== "" && sel.second.cuisine === "") {
+ // ########## NO CUISINE #############
+        const data1 = d3.nest()
+            .key(function(d) { return d.state;})
+            .key(function(d) { return d.day})
+            .rollup(function(d) {
+                return d3.sum(d, function(g) {return g.num_revs; });
+            }).entries(data.filter( function(d){return d.state === sel.second.state} ));
+      var combo2 = [];
+    data1[0].values.forEach( function (d) {
+        combo2.push([parseInt(d.key),parseInt(d.value)]);
+        maxrevs.push(parseInt(d.value))
 
-  var combo2 = data
-    .filter( function(d){return d.state === sel.second.state} )
-    .map(function(d){
-      maxrevs.push(parseInt(d.num_revs))
-      return [parseInt(d.day), parseInt(d.num_revs)]; })
+    });
+
   combo2.sort(function(a,b) { return a[0]-b[0] });
 
   } else if (sel.second.state === "" && sel.second.cuisine !== "") {
+ // ############# NO STATE ##########
+        const data1 = d3.nest()
+            .key(function(d) { return d.category;})
+            .key(function(d) { return d.day})
+            .rollup(function(d) {
+                return d3.sum(d, function(g) {return g.num_revs; });
+            }).entries(data.filter( function(d){return d.category === sel.first.cuisine} ));
+      combo2 = [];
+    data1[0].values.forEach( function (d) {
+        combo2.push([parseInt(d.key),parseInt(d.value)]);
+        maxrevs.push(parseInt(d.value))
 
-  var combo2 = data
-    .filter( function(d){return d.category === sel.second.cuisine} )
-    .map(function(d){
-      maxrevs.push(parseInt(d.num_revs))
-      return [parseInt(d.day), parseInt(d.num_revs)]; })
+    });
+
   combo2.sort(function(a,b) { return a[0]-b[0] });
 
-  } else { //replace this with the total
-  
-  var combo2 = data
-    .filter( function(d){return d.state === "NV" && d.category === "Delis"} )
-    .map(function(d){
-      maxrevs.push(parseInt(d.num_revs))
-      return [parseInt(d.day), parseInt(d.num_revs)]; })
+  } else {
+      //################ TOTAL ################
+        const data1 = d3.nest()
+            .key(function(d) { return d.day})
+            .rollup(function(d) {
+                return d3.sum(d, function(g) {return g.num_revs; });
+            }).entries(data);
+      combo2 = [];
+        data1.forEach( function (d) {
+        combo2.push([parseInt(d.key),parseInt(d.value)]);
+        maxrevs.push(parseInt(d.value))
+    });
+
   combo2.sort(function(a,b) { return a[0]-b[0] });
   }
 
