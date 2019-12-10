@@ -179,3 +179,7 @@ height: 30px;
   margin-top: 22px;
   margin-right: 30px;
 }
+
+.hideX {
+  display: none;
+}
