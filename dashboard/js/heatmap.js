@@ -80,11 +80,13 @@ var myHeatmapColor = d3.scaleLinear()
       });
 
 function updateHeatmap(data) {
+    hm_nodes.select("title").remove()
     hm_nodes.data(data, function(d) { return d.States+':'+d.Cuisine; })
 
     .style("fill", function(d) { return myHeatmapColor(d.Rating) } )
-      .append("svg:title")
-      .text(function(d) { return ["Average rating: " + d.Rating]; })
+      //.select("title").remove()
+        .append("svg:title")
+      .text(function(d) { return ["Average rating: " + Math.round(d.Rating * 100) /100]; })
 
 }
   // Initializing the heatmap
