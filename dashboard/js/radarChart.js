@@ -4,6 +4,11 @@
 // Inspired by the code of alangrafu and Nadieh Bremer //
 // (VisualCinnamon.com) and modified for d3 v4 //////////
 /////////////////////////////////////////////////////////
+//License Copyright: Unknown.
+//License License: Unknown.
+//License Contact: Unknown.
+
+//SPDX short identifier: MIT
 
 const max = Math.max;
 const sin = Math.sin;
