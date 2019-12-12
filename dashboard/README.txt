@@ -1,7 +1,7 @@
 Visualization can be run by opening the local folder in the browser
 and opening index.html file.
 
-Visualization was tested with following browsers:
+Visualization was tested with following browsers, without internet connection:
 
 Google Chrome Version 78.0.3904.108 (Official Build) (64-bit).
 With Chrome you need Web Server for Chrome extension due to the fact
